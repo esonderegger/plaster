@@ -38,3 +38,6 @@ jspm_packages
 
 # Photoshop assets
 psd
+
+# Compiled css and js for app
+app/compiled
