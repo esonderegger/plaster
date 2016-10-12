@@ -4,7 +4,11 @@
   "description": "A Desktop App for Making Great Podcasts",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watchapp": "./node_modules/.bin/gulp watchapp",
+    "docs": "./node_modules/.bin/gulp docs",
+    "electron": "./node_modules/.bin/electron .",
+    "dev": "concurrently --kill-others \"npm run watchapp\" \"npm run electron\""
   },
   "repository": {
     "type": "git",
@@ -29,6 +33,7 @@
     "eslint-config-google": "^0.6.0",
     "eslint-plugin-react": "^6.4.1",
     "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0",
     "gulp-sass": "^2.3.2",
     "handlebars": "^4.0.5",
     "material-ui": "^0.16.0",
