@@ -1,0 +1,12 @@
+.welcome-screen {
+  left: 50%;
+  min-width: 400px;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+
+  .welcome-button {
+    margin: 1em;
+  }
+}

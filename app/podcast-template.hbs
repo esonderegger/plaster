@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+  <channel>
+    <language>{{language}}</language>
+    <title>{{title}}</title>
+    <link>{{link}}</link>
+    {{#if copyright}}
+    <copyright>{{copyright}}</copyright>
+    {{/if}}
+    <description>{{description}}</description>
+    <itunes:summary>{{description}}</itunes:summary>
+    {{#if subtitle}}
+    <itunes:subtitle>{{subtitle}}</itunes:subtitle>
+    {{/if}}
+    {{#if image}}
+    <image>
+      <url>{{image}}</url>
+      <title>{{title}}</title>
+      <link>{{link}}</link>
+    </image>
+    <itunes:image href="{{image}}" />
+    {{/if}}
+    <itunes:author>{{author}}</itunes:author>
+    <itunes:owner>
+      <itunes:name>{{ownerName}}</itunes:name>
+      <itunes:email>{{ownerEmail}}</itunes:email>
+    </itunes:owner>
+    {{#if explicit}}
+    <itunes:explicit>Yes</itunes:explicit>
+    {{else}}
+    <itunes:explicit>No</itunes:explicit>
+    {{/if}}
+    <lastBuildDate>{{buildDate}}</lastBuildDate>
+    {{#each items}}
+    <item>
+      <title>{{this.title}}</title>
+      <description>{{this.description}}</description>
+      <itunes:summary>{{this.description}}</itunes:summary>
+      {{#if this.subtitle}}
+      <itunes:subtitle>{{this.subtitle}}</itunes:subtitle>
+      {{/if}}
+      {{#if this.author}}
+      <itunes:author>{{this.author}}</itunes:author>
+      {{/if}}
+      <pubDate>{{this.pubdate}}</pubDate>
+      <itunes:duration>{{this.duration}}</itunes:duration>
+      <enclosure length="{{this.filesize}}" url="{{this.fileurl}}" type="{{this.filetype}}" />
+    </item>
+    {{/each}}
+  </channel>
+</rss>
