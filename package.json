@@ -1,0 +1,46 @@
+{
+  "name": "plaster",
+  "version": "0.1.0",
+  "description": "A Desktop App for Making Great Podcasts",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esonderegger/plaster.git"
+  },
+  "keywords": [
+    "podcast",
+    "podcasting"
+  ],
+  "author": "Evan Sonderegger",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/esonderegger/plaster/issues"
+  },
+  "homepage": "https://github.com/esonderegger/plaster#readme",
+  "dependencies": {
+    "babel-preset-es2015-rollup": "^1.2.0",
+    "babel-preset-react": "^6.16.0",
+    "concurrently": "^3.1.0",
+    "electron": "^1.4.3",
+    "eslint": "^3.7.1",
+    "eslint-config-google": "^0.6.0",
+    "eslint-plugin-react": "^6.4.1",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.2",
+    "handlebars": "^4.0.5",
+    "material-ui": "^0.16.0",
+    "moment": "^2.15.1",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-tap-event-plugin": "^1.0.0",
+    "rollup": "^0.36.3",
+    "rollup-plugin-babel": "^2.6.1",
+    "rollup-plugin-commonjs": "^5.0.5",
+    "rollup-plugin-env": "^0.21.2",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "sax": "^1.2.1"
+  }
+}
