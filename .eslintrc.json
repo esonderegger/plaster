@@ -1,0 +1,23 @@
+{
+    "extends": "google",
+    "installedESLint": true,
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "rules": {
+        "semi": "error",
+        "require-jsdoc": "off",
+        "react/jsx-uses-vars": "warn",
+        "react/react-in-jsx-scope": "warn"
+    },
+    "plugins": [
+        "react"
+    ],
+    "env": {
+        "browser": true
+    }
+}
