@@ -1,0 +1,28 @@
+{
+  "name": "plaster",
+  "version": "0.1.0",
+  "description": "A Desktop App for Making Great Podcasts",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esonderegger/plaster.git"
+  },
+  "keywords": [
+    "podcast",
+    "podcasting"
+  ],
+  "author": "Evan Sonderegger",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/esonderegger/plaster/issues"
+  },
+  "homepage": "https://esonderegger.github.io/plaster/",
+  "dependencies": {
+    "handlebars": "^4.0.5",
+    "moment": "^2.15.1",
+    "sax": "^1.2.1"
+  }
+}

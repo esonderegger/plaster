@@ -2,12 +2,14 @@
   "name": "plaster",
   "version": "0.1.0",
   "description": "A Desktop App for Making Great Podcasts",
-  "main": "main.js",
+  "main": "app/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watchapp": "./node_modules/.bin/gulp watchapp",
     "docs": "./node_modules/.bin/gulp docs",
     "electron": "./node_modules/.bin/electron .",
+    "appinstall": "cd app && npm install",
+    "package": "./node_modules/.bin/electron-packager ./app --all --out=tmpPackages/ --icon=icon/plaster.icns",
     "dev": "concurrently --kill-others \"npm run watchapp\" \"npm run electron\""
   },
   "repository": {
@@ -23,8 +25,8 @@
   "bugs": {
     "url": "https://github.com/esonderegger/plaster/issues"
   },
-  "homepage": "https://github.com/esonderegger/plaster#readme",
-  "dependencies": {
+  "homepage": "https://esonderegger.github.io/plaster/",
+  "devDependencies": {
     "babel-preset-es2015-rollup": "^1.2.0",
     "babel-preset-react": "^6.16.0",
     "concurrently": "^3.1.0",

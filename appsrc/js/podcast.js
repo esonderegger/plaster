@@ -5,6 +5,7 @@ import PodcastSettings from './podcast-settings.js';
 import PodcastItem from './podcast-item.js';
 import podcastParser from './podcast-parser.js';
 import podcastRender from './podcast-render.js';
+var fs = require('fs');
 var path = require('path');
 var moment = require('moment');
 
@@ -30,7 +31,7 @@ export default class Podcast extends React.Component {
       settings: {
         showOptionalFields: false,
         deploytype: 'none',
-        urlPrefix: '',
+        prefixUrl: '',
         sftphost: '',
         sftpuser: '',
         sftppass: '',
@@ -43,7 +44,6 @@ export default class Podcast extends React.Component {
       settingsDialogOpen: false
     };
     this.updateSubState = this.updateSubState.bind(this);
-    // this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
     this.handleItemChange = this.handleItemChange.bind(this);
     this.newItem = this.newItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
@@ -53,11 +53,25 @@ export default class Podcast extends React.Component {
     this.closeSettingsDialog = this.closeSettingsDialog.bind(this);
   }
   componentDidMount() {
+    var localPath = path.join(this.props.directory, '.podcast-local.xml');
     var xmlPath = path.join(this.props.directory, 'podcast.xml');
     var outerThis = this;
-    podcastParser(xmlPath, function(parsed) {
-      outerThis.setState({podcast: parsed});
-    });
+    try {
+      fs.accessSync(localPath, fs.F_OK);
+      podcastParser(localPath, function(parsed) {
+        outerThis.setState({podcast: parsed});
+      });
+    } catch (e) {
+      console.log('no .podcast-local.xml file - trying podcast.xml');
+      try {
+        fs.accessSync(xmlPath, fs.F_OK);
+        podcastParser(xmlPath, function(parsed) {
+          outerThis.setState({podcast: parsed});
+        });
+      } catch (e) {
+        console.log('no podcast.xml - starting from scratch');
+      }
+    }
   }
   updateSubState(outerKey, innerKey, value) {
     var newState = {};
@@ -65,11 +79,6 @@ export default class Podcast extends React.Component {
     newState[outerKey][innerKey] = value;
     this.setState(newState);
   }
-  // handleTextFieldChange(e) {
-  //   var newState = {};
-  //   newState[e.target.name] = e.target.value;
-  //   this.setState(newState);
-  // }
   handleItemChange(i, k, v) {
     var tmpPodcast = this.state.podcast;
     tmpPodcast.items[i][k] = v;

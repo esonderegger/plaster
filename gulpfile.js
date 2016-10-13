@@ -9,7 +9,7 @@ var rollupBabel = require('rollup-plugin-babel');
 
 gulp.task('rollupapp', function() {
   return rollup({
-    entry: 'app/js/plaster.js',
+    entry: 'appsrc/js/plaster.js',
     plugins: [
       rollupEnv({
         NODE_ENV: 'production'
@@ -38,7 +38,7 @@ gulp.task('rollupapp', function() {
 });
 
 gulp.task('cssapp', function() {
-  return gulp.src('app/scss/plaster.scss')
+  return gulp.src('appsrc/scss/plaster.scss')
   .pipe(sass({
     outputStyle: 'compressed'
   }))
@@ -60,9 +60,11 @@ gulp.task('connectdocs', function() {
   });
 });
 
-gulp.task('watchapp', ['rollupapp', 'cssapp'], function() {
-  gulp.watch('app/js/*.js', ['rollupapp']);
-  gulp.watch('app/scss/*.scss', ['cssapp']);
+gulp.task('buildapp', ['rollupapp', 'cssapp']);
+
+gulp.task('watchapp', ['buildapp'], function() {
+  gulp.watch('appsrc/js/*.js', ['rollupapp']);
+  gulp.watch('appsrc/scss/*.scss', ['cssapp']);
 });
 
 gulp.task('watchdocs', ['cssdocs'], function() {

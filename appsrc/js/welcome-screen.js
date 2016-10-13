@@ -47,7 +47,7 @@ export default class WelcomeScreen extends React.Component {
     };
     electronApp.dialog.showOpenDialog(options, function(dirPath) {
       if (dirPath !== undefined) {
-        var xmlPath = path.join(dirPath[0], 'podcast.xml');
+        var xmlPath = path.join(dirPath[0], '.podcast-local.xml');
         var xmlFile = fs.createWriteStream(xmlPath);
         const request = httplib.get(
           outerThis.state.externalUrl, function(response) {
