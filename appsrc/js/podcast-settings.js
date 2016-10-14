@@ -5,6 +5,8 @@ import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
+const fs = require('fs');
+const path = require('path');
 
 export default class PodcastSettings extends React.Component {
   constructor(props) {
@@ -30,6 +32,12 @@ export default class PodcastSettings extends React.Component {
   }
   closeSelf() {
     console.log('here we should be setting local storage stuff');
+    var outPath = path.join(this.props.directory, '.settings.json');
+    fs.writeFile(outPath, JSON.stringify(this.props.settings), function(err) {
+      if (err !== null) {
+        console.error(err);
+      }
+    });
     this.props.close();
   }
   render() {
