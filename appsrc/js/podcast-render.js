@@ -1,7 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var handlebars = require('handlebars');
-var moment = require('moment');
+import moment from 'moment';
 
 const escape = {
   '&': '&#x26;',
