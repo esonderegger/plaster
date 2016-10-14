@@ -147,12 +147,12 @@ export default class Podcast extends React.Component {
             />
           </div>
         </div>
-        <PodcastChannel
+        <PodcastChannel {...this.props}
           podcast={this.state.podcast}
           settings={this.state.settings}
           handleChange={(k, v) => this.updateSubState('podcast', k, v)}
         />
-        <PodcastSettings
+        <PodcastSettings {...this.props}
           open={this.state.settingsDialogOpen}
           close={this.closeSettingsDialog}
           settings={this.state.settings}
@@ -173,7 +173,7 @@ export default class Podcast extends React.Component {
           {
             this.state.podcast.items.map(function(item, i) {
               return (
-                <PodcastItem key={i}
+                <PodcastItem key={i} {...outerThis.props}
                   episode={item}
                   settings={outerThis.state.settings}
                   handleChange={(k, v) => outerThis.handleItemChange(i, k, v)}
