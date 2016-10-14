@@ -56,8 +56,9 @@ function renderRemote(directory, podcastState, prefixUrl) {
   if (!prefixUrl.endsWith('/')) {
     prefixUrl += '/';
   }
-  podcastState.image = prefixUrl + path.basename(podcastState.image);
-  renderPodcastFile(directory, podcastState, 'podcast.xml');
+  var podcastCopy = Object.assign({}, podcastState);
+  podcastCopy.image = prefixUrl + path.basename(podcastCopy.image);
+  renderPodcastFile(directory, podcastCopy, 'podcast.xml');
 }
 
 export default function podcastRender(directory, podcastState, prefixUrl) {

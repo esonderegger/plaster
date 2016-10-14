@@ -2,6 +2,8 @@ import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 var electronApp = require('electron').remote;
+const fs = require('fs');
+const path = require('path');
 
 export default class PodcastChannel extends React.Component {
   constructor(props) {
@@ -21,6 +23,21 @@ export default class PodcastChannel extends React.Component {
       } else {
         console.log(fileNames[0]);
         outerThis.props.handleChange('image', fileNames[0]);
+        console.log(outerThis.props);
+        var imageBasename = path.basename(fileNames[0]);
+        var target = path.join(outerThis.props.directory, imageBasename);
+        var rd = fs.createReadStream(fileNames[0]);
+        rd.on("error", function(err) {
+          console.error(err);
+        });
+        var wr = fs.createWriteStream(target);
+        wr.on("error", function(err) {
+          console.error(err);
+        });
+        wr.on("close", function(ex) {
+          outerThis.props.handleChange('image', target);
+        });
+        rd.pipe(wr);
       }
     });
   }
