@@ -51,6 +51,18 @@ export default class Podcast extends React.Component {
     this.setActiveItem = this.setActiveItem.bind(this);
     this.openSettingsDialog = this.openSettingsDialog.bind(this);
     this.closeSettingsDialog = this.closeSettingsDialog.bind(this);
+    this.merge = this.merge.bind(this);
+  }
+  merge(stateKey, newStateObject) {
+    var newObject = this.state[stateKey];
+    var k;
+    for (k in newStateObject) {
+      if (newStateObject.hasOwnProperty(k) === false) {
+        continue;
+      }
+      newObject[k] = newStateObject[k];
+    }
+    return newObject;
   }
   componentDidMount() {
     var localPath = path.join(this.props.directory, '.podcast-local.xml');
@@ -59,18 +71,28 @@ export default class Podcast extends React.Component {
     try {
       fs.accessSync(localPath, fs.F_OK);
       podcastParser(localPath, function(parsed) {
-        outerThis.setState({podcast: parsed});
+        outerThis.setState({podcast: outerThis.merge('podcast', parsed)});
       });
     } catch (e) {
       console.log('no .podcast-local.xml file - trying podcast.xml');
       try {
         fs.accessSync(xmlPath, fs.F_OK);
         podcastParser(xmlPath, function(parsed) {
-          outerThis.setState({podcast: parsed});
+          outerThis.setState({podcast: outerThis.merge('podcast', parsed)});
         });
       } catch (e) {
         console.log('no podcast.xml - starting from scratch');
       }
+    }
+    var settingsPath = path.join(this.props.directory, '.settings.json');
+    try {
+      fs.accessSync(settingsPath, fs.F_OK);
+      fs.readFile(settingsPath, 'utf8', function(err, data) {
+        if (err) throw err;
+        outerThis.setState({settings: JSON.parse(data)});
+      });
+    } catch (e) {
+      console.log('no .settings.json file found');
     }
   }
   updateSubState(outerKey, innerKey, value) {

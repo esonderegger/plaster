@@ -18,9 +18,6 @@ export default class PodcastSettings extends React.Component {
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.closeSelf = this.closeSelf.bind(this);
   }
-  componentDidMount() {
-    console.log('loading local storage settings?');
-  }
   handleTextFieldChange(e) {
     this.props.handleChange(e.target.name, e.target.value);
   }
@@ -31,7 +28,6 @@ export default class PodcastSettings extends React.Component {
     this.props.handleChange('deploytype', v);
   }
   closeSelf() {
-    console.log('here we should be setting local storage stuff');
     var outPath = path.join(this.props.directory, '.settings.json');
     fs.writeFile(outPath, JSON.stringify(this.props.settings), function(err) {
       if (err !== null) {
