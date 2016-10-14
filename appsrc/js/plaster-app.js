@@ -11,11 +11,19 @@ export default class PlasterApp extends React.Component {
     this.goHome = this.goHome.bind(this);
     this.updatePodcastPath = this.updatePodcastPath.bind(this);
   }
+  componentDidMount() {
+    var pathFromLocalStorage = localStorage.getItem('podcastDirectory');
+    if (pathFromLocalStorage) {
+      this.setState({podcastPath: pathFromLocalStorage});
+    }
+  }
   updatePodcastPath(p) {
     this.setState({podcastPath: p});
+    localStorage.setItem('podcastDirectory', p);
   }
   goHome() {
     this.setState({podcastPath: ''});
+    localStorage.setItem('podcastDirectory', null);
   }
   render() {
     if (this.state.podcastPath) {
