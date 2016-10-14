@@ -4,9 +4,9 @@ var handlebars = require('handlebars');
 var moment = require('moment');
 
 const escape = {
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;'
+  '&': '&#x26;',
+  '<': '&#x3C;',
+  '>': '&#x3E;'
 };
 
 const badChars = /[&<>]/g;
