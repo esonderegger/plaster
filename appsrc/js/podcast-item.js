@@ -3,6 +3,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
+import encodeAudio from './encode-audio.js';
 var electronApp = require('electron').remote;
 
 export default class PodcastItem extends React.Component {
@@ -26,6 +27,11 @@ export default class PodcastItem extends React.Component {
         console.log("No file selected");
       } else {
         outerThis.props.handleChange('fileurl', fileNames[0]);
+        encodeAudio(
+          fileNames[0],
+          outerThis.props.directory,
+          outerThis.props.handleChange
+        );
         console.log(fileNames[0]);
       }
     });
