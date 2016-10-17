@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 function ffmpegPath() {
-  return path.join(__dirname, 'compiled', 'ffmpeg_mac2');
+  return path.join(__dirname, 'compiled', 'ffmpeg_mac');
 }
 
 function measureLoudness(srcPath, destDir, handleChange) {
@@ -11,7 +11,7 @@ function measureLoudness(srcPath, destDir, handleChange) {
     '-i',
     srcPath,
     '-af',
-    'loudnorm=I=-18:TP=-0.5:LRA=9:print_format=json',
+    'loudnorm=I=-18:TP=-1.0:LRA=9:print_format=json',
     '-f',
     'null',
     '-'
@@ -25,7 +25,6 @@ function measureLoudness(srcPath, destDir, handleChange) {
     var jsonStartIndex = stderrText.lastIndexOf('{');
     var jsonString = stderrText.slice(jsonStartIndex);
     var measuredJson = JSON.parse(jsonString);
-    console.log(measuredJson);
     secondPass(srcPath, destDir, measuredJson, handleChange);
   });
 }
@@ -42,7 +41,7 @@ function secondPass(srcPath, destDir, loudnessInfo, handleChange) {
     '-i',
     srcPath,
     '-af',
-    'loudnorm=I=-18:TP=-0.5:LRA=9:' + afString,
+    'loudnorm=I=-18:TP=-1.0:LRA=9:' + afString,
     '-codec:a',
     'libmp3lame',
     '-b:a',
