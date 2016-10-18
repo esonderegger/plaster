@@ -36,7 +36,7 @@ function customEscapeExpression(string) {
 handlebars.Utils.escapeExpression = customEscapeExpression;
 
 function renderPodcastFile(directory, podcastState, filename) {
-  var hbsPath = './app/podcast-template.hbs';
+  var hbsPath = path.join(__dirname, 'podcast-template.hbs');
   var hbsTemplate = handlebars.compile(fs.readFileSync(hbsPath, "utf8"));
   var DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
   podcastState.buildDate = moment().format(DATE_RFC2822);
