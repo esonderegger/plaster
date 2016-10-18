@@ -10,7 +10,10 @@
     "docs": "./node_modules/.bin/gulp docs",
     "electron": "./node_modules/.bin/electron .",
     "appinstall": "cd app && npm install",
-    "package": "./node_modules/.bin/electron-packager ./app --all --out=tmpPackages/ --icon=icon/plaster.icns",
+    "deletepackages": "node delete-packages.js",
+    "createpackages": "./node_modules/.bin/electron-packager ./app --all --out=tmpPackages/ --icon=icon/plaster.icns",
+    "zippackages": "node zip-packages.js",
+    "package": "npm run deletepackages && npm run createpackages && npm run zippackages",
     "dev": "concurrently --kill-others \"npm run watchapp\" \"npm run electron\""
   },
   "repository": {
@@ -51,5 +54,8 @@
     "rollup-plugin-env": "^0.21.2",
     "rollup-plugin-node-resolve": "^2.0.0",
     "sax": "^1.2.1"
+  },
+  "dependencies": {
+    "archiver": "^1.1.0"
   }
 }
