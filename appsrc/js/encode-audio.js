@@ -1,9 +1,17 @@
 var childProcess = require('child_process');
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
 function ffmpegPath() {
-  return path.join(__dirname, 'compiled', 'ffmpeg_mac');
+  if (os.type() === 'Darwin') {
+    return path.join(__dirname, 'compiled', 'ffmpeg_mac');
+  }
+  if (os.type() === 'Windows_NT') {
+    return path.join(__dirname, 'compiled', 'ffmpeg.exe');
+  }
+  console.log(os.type());
+  return path.join(__dirname, 'compiled', 'ffmpeg_linux');
 }
 
 function measureLoudness(srcPath, destDir, handleChange) {
@@ -22,6 +30,7 @@ function measureLoudness(srcPath, destDir, handleChange) {
     stderrText += data;
   });
   ff.on('exit', (code, signal) => {
+    console.log(stderrText);
     var jsonStartIndex = stderrText.lastIndexOf('{');
     var jsonString = stderrText.slice(jsonStartIndex);
     var measuredJson = JSON.parse(jsonString);
@@ -48,8 +57,13 @@ function secondPass(srcPath, destDir, loudnessInfo, handleChange) {
     '192k',
     outPath
   ];
+  var stderrText = '';
   var ff = childProcess.spawn(ffmpegPath(), opts);
+  ff.stderr.on('data', function(data) {
+    stderrText += data;
+  });
   ff.on('exit', (code, signal) => {
+    console.log(stderrText);
     var stats = fs.statSync(outPath);
     handleChange('fileurl', outPath);
     handleChange('filesize', stats.size);
