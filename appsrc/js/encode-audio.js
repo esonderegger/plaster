@@ -10,8 +10,11 @@ function ffmpegPath() {
   if (os.type() === 'Windows_NT') {
     return path.join(__dirname, 'compiled', 'ffmpeg.exe');
   }
+  if (os.type() === 'Linux') {
+    return path.join(__dirname, 'compiled', 'ffmpeg_linux');
+  }
   console.log(os.type());
-  return path.join(__dirname, 'compiled', 'ffmpeg_linux');
+  return false;
 }
 
 function measureLoudness(srcPath, destDir, handleChange) {
