@@ -45,10 +45,13 @@ export default class PodcastChannel extends React.Component {
     var imgSrc = 'noimg.png';
     if (this.props.podcast.image.startsWith('/')) {
       imgSrc = 'file://' + this.props.podcast.image;
-    }
-    if (this.props.podcast.image.startsWith('http')) {
+    } else if (this.props.podcast.image.startsWith('http')) {
       imgSrc = this.props.podcast.image;
+    } else if (this.props.podcast.image !== '') {
+      imgSrc = 'file:///' + this.props.podcast.image.replace(/\\/g, '/');
     }
+    imgSrc = encodeURI(imgSrc);
+    console.log(imgSrc);
     return (
       <div className="podcast-channel">
         <div className="text-fields">
