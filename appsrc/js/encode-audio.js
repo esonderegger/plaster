@@ -39,6 +39,9 @@ function measureLoudness(srcPath, destDir, handleChange) {
 }
 
 function secondPass(srcPath, destDir, loudnessInfo, handleChange) {
+  if (!fs.existsSync(path.join(destDir, 'media'))) {
+    fs.mkdirSync(path.join(destDir, 'media'));
+  }
   var outPath = path.join(destDir, 'media', path.parse(srcPath).name + '.mp3');
   var afString = 'measured_I=' + loudnessInfo.input_i +
     ':measured_LRA=' + loudnessInfo.input_lra +
