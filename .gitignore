@@ -41,3 +41,6 @@ psd
 
 # Compiled css and js for app
 app/compiled
+
+# unzipped package files
+tmpPackages
