@@ -1,6 +1,7 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import PodcastCategories from './podcast-categories.js';
 var electronApp = require('electron').remote;
 const fs = require('fs');
 const path = require('path');
@@ -8,9 +9,13 @@ const path = require('path');
 export default class PodcastChannel extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      categoriesOpen: false
+    };
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
     this.chooseImage = this.chooseImage.bind(this);
+    this.openCategories = this.openCategories.bind(this);
+    this.closeCategories = this.closeCategories.bind(this);
   }
   handleTextFieldChange(e) {
     this.props.handleChange(e.target.name, e.target.value);
@@ -41,6 +46,12 @@ export default class PodcastChannel extends React.Component {
       }
     });
   }
+  openCategories() {
+    this.setState({categoriesOpen: true});
+  }
+  closeCategories() {
+    this.setState({categoriesOpen: false});
+  }
   render() {
     var imgSrc = 'noimg.png';
     if (this.props.podcast.image.startsWith('/')) {
@@ -51,7 +62,6 @@ export default class PodcastChannel extends React.Component {
       imgSrc = 'file:///' + this.props.podcast.image.replace(/\\/g, '/');
     }
     imgSrc = encodeURI(imgSrc);
-    console.log(imgSrc);
     return (
       <div className="podcast-channel">
         <div className="text-fields">
@@ -61,6 +71,14 @@ export default class PodcastChannel extends React.Component {
             name="title"
             fullWidth={true}
             value={this.props.podcast.title}
+            onChange={this.handleTextFieldChange}
+          />
+          <TextField
+            hintText="The author of this podcast"
+            floatingLabelText="Author"
+            name="author"
+            fullWidth={true}
+            value={this.props.podcast.author}
             onChange={this.handleTextFieldChange}
           />
           {this.props.settings.showOptionalFields ?
@@ -75,14 +93,6 @@ export default class PodcastChannel extends React.Component {
             />
           ) : null}
           <TextField
-            hintText="The url of this podcast's website"
-            floatingLabelText="Link"
-            name="link"
-            fullWidth={true}
-            value={this.props.podcast.link}
-            onChange={this.handleTextFieldChange}
-          />
-          <TextField
             hintText="A short description of this podcast's content"
             floatingLabelText="Description"
             name="description"
@@ -92,11 +102,11 @@ export default class PodcastChannel extends React.Component {
             onChange={this.handleTextFieldChange}
           />
           <TextField
-            hintText="The author of this podcast"
-            floatingLabelText="Author"
-            name="author"
+            hintText="The url of this podcast's website"
+            floatingLabelText="Link"
+            name="link"
             fullWidth={true}
-            value={this.props.podcast.author}
+            value={this.props.podcast.link}
             onChange={this.handleTextFieldChange}
           />
           <TextField
@@ -125,16 +135,26 @@ export default class PodcastChannel extends React.Component {
           />
         </div>
         <div className="other-fields">
-          <div>
+          <div className="image-section">
             <img src={imgSrc} alt={this.state.title} />
-          </div>
-          <div className="other-button">
             <RaisedButton
+              className="choose-image-button"
               label="Choose an image file"
               onTouchTap={this.chooseImage}
             />
           </div>
+          <div className="other-button">
+            <RaisedButton
+              label="Choose categories"
+              onTouchTap={this.openCategories}
+            />
+          </div>
         </div>
+        <PodcastCategories {...this.props}
+          open={this.state.categoriesOpen}
+          close={this.closeCategories}
+          categories={this.props.podcast.categories}
+        />
       </div>
     );
   }
