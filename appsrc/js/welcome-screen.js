@@ -98,25 +98,27 @@ export default class WelcomeScreen extends React.Component {
     ];
     return (
       <div className="welcome-screen">
-        <h1>Welcome to Plaster</h1>
-        <p>painless editing of podcast feeds</p>
-        <div className="welcome-button">
-          <RaisedButton
-            label="Create a new podcast"
-            onTouchTap={this.createNewPocast}
-          />
-        </div>
-        <div className="welcome-button">
-          <RaisedButton
-            label="Edit a podcast on this computer"
-            onTouchTap={this.loadFromFile}
-          />
-        </div>
-        <div className="welcome-button">
-          <RaisedButton
-            label="Import a podcast from a url"
-            onTouchTap={this.openUrlDialog}
-          />
+        <div className="welcome-screen-inner">
+          <h1>Welcome to Plaster</h1>
+          <p>Please select an option to get started</p>
+          <div className="welcome-button">
+            <RaisedButton
+              label="Create a new podcast"
+              onTouchTap={this.createNewPocast}
+            />
+          </div>
+          <div className="welcome-button">
+            <RaisedButton
+              label="Edit a podcast on this computer"
+              onTouchTap={this.loadFromFile}
+            />
+          </div>
+          <div className="welcome-button">
+            <RaisedButton
+              label="Import a podcast from a url"
+              onTouchTap={this.openUrlDialog}
+            />
+          </div>
         </div>
         <Dialog
           actions={actions}
