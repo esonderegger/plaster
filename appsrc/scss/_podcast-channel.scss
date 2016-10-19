@@ -89,3 +89,17 @@
   text-align: right;
   width: 30%;
 }
+
+.podcast-categories-dialog {
+  // column-count: 2;
+
+  .category-checkbox-group {
+    // display: inline-block;
+    padding: 0 0 .5em;
+    width: 18em;
+  }
+
+  .subcategories-group {
+    padding: 0 0 .5em 2em;
+  }
+}
