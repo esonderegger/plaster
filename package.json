@@ -31,6 +31,7 @@
   },
   "homepage": "https://esonderegger.github.io/plaster/",
   "devDependencies": {
+    "archiver": "^1.1.0",
     "babel-preset-es2015-rollup": "^1.2.0",
     "babel-preset-react": "^6.16.0",
     "concurrently": "^3.1.0",
@@ -48,14 +49,14 @@
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-tap-event-plugin": "^1.0.0",
+    "readdirp": "^2.1.0",
     "rollup": "^0.36.3",
     "rollup-plugin-babel": "^2.6.1",
     "rollup-plugin-commonjs": "^5.0.5",
     "rollup-plugin-env": "^0.21.2",
     "rollup-plugin-node-resolve": "^2.0.0",
+    "s3-sync-aws": "^1.1.1",
     "sax": "^1.2.1"
   },
-  "dependencies": {
-    "archiver": "^1.1.0"
-  }
+  "dependencies": {}
 }
