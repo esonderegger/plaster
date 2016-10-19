@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
   <channel>
     <language>{{language}}</language>
     <title>{{title}}</title>
@@ -31,8 +31,17 @@
     <itunes:explicit>No</itunes:explicit>
     {{/if}}
     <lastBuildDate>{{buildDate}}</lastBuildDate>
+    {{#each categories}}
+    <itunes:category text="{{this.categoryName}}">
+      {{#each this.subCategories}}
+      <itunes:category text="{{this}}" />
+      {{/each}}
+    </itunes:category>
+    {{/each}}
+    <atom:link href="{{prefixUrl}}podcast.xml" rel="self" type="application/rss+xml" />
     {{#each items}}
     <item>
+      <guid isPermaLink="true">{{this.fileurl}}</guid>
       <title>{{this.title}}</title>
       <description>{{this.description}}</description>
       <itunes:summary>{{this.description}}</itunes:summary>
