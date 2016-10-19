@@ -30,7 +30,8 @@ export default class PodcastItem extends React.Component {
         encodeAudio(
           fileNames[0],
           outerThis.props.directory,
-          outerThis.props.handleChange
+          outerThis.props.handleChange,
+          outerThis.props.setSnackbar
         );
         console.log(fileNames[0]);
       }
@@ -58,10 +59,12 @@ export default class PodcastItem extends React.Component {
     var audioSrc = '';
     if (this.props.episode.fileurl.startsWith('/')) {
       audioSrc = 'file://' + this.props.episode.fileurl;
-    }
-    if (this.props.episode.fileurl.startsWith('http')) {
+    } else if (this.props.episode.fileurl.startsWith('http')) {
       audioSrc = this.props.episode.fileurl;
+    } else if (this.props.episode.fileurl !== '') {
+      audioSrc = 'file:///' + this.props.episode.fileurl.replace(/\\/g, '/');
     }
+    audioSrc = encodeURI(audioSrc);
     if (!this.props.expanded) {
       return (
         <div className="podcast-item">
