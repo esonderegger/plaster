@@ -5,6 +5,7 @@ import PodcastSettings from './podcast-settings.js';
 import PodcastItem from './podcast-item.js';
 import podcastParser from './podcast-parser.js';
 import podcastRender from './podcast-render.js';
+import syncRemote from './sync-remote.js';
 var fs = require('fs');
 var path = require('path');
 var moment = require('moment');
@@ -51,6 +52,7 @@ export default class Podcast extends React.Component {
     this.setActiveItem = this.setActiveItem.bind(this);
     this.openSettingsDialog = this.openSettingsDialog.bind(this);
     this.closeSettingsDialog = this.closeSettingsDialog.bind(this);
+    this.publish = this.publish.bind(this);
     this.merge = this.merge.bind(this);
   }
   merge(stateKey, newStateObject) {
@@ -112,7 +114,7 @@ export default class Podcast extends React.Component {
       title: '',
       description: '',
       author: '',
-      duration: '0:00:00',
+      duration: 0.0,
       subtitle: '',
       pubdate: moment().format(DATE_RFC2822),
       filesize: 0,
@@ -140,6 +142,10 @@ export default class Podcast extends React.Component {
   closeSettingsDialog() {
     this.setState({settingsDialogOpen: false});
   }
+  publish() {
+    console.log('syncing...');
+    syncRemote(this.props.directory, this.state.settings);
+  }
   saveChanges() {
     podcastRender(this.props.directory,
       this.state.podcast,
@@ -152,14 +158,20 @@ export default class Podcast extends React.Component {
         <div className="podcast-banner">
           <div className="other-button">
             <RaisedButton
+              label="Go Home"
+              onTouchTap={this.props.goHome}
+            />
+          </div>
+          <div className="other-button">
+            <RaisedButton
               label="Settings"
               onTouchTap={this.openSettingsDialog}
             />
           </div>
           <div className="other-button">
             <RaisedButton
-              label="Go Home"
-              onTouchTap={this.props.goHome}
+              label="Publish"
+              onTouchTap={this.publish}
             />
           </div>
           <div className="other-button">
