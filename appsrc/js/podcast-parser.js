@@ -8,14 +8,31 @@ export default function podcastParser(filePath, callback) {
     lowercase: true
   };
   var saxStream = sax.createStream(false, options);
-  var rssObj = {items: []};
+  var rssObj = {items: [], categories: []};
+  var parentTagName = '';
   var currentTagName = '';
   var itemIndex = -1;
+  var categoryIndex = -1;
   saxStream.on('opentag', function(node) {
+    if (currentTagName !== '') {
+      parentTagName = currentTagName;
+    }
     currentTagName = node.name;
     if (currentTagName === 'item') {
       rssObj.items.push({});
       itemIndex++;
+    }
+    if (currentTagName === 'itunes:category') {
+      if (parentTagName === 'itunes:category') {
+        rssObj.categories[categoryIndex].subCategories
+          .push(node.attributes.text);
+      } else {
+        rssObj.categories.push({
+          categoryName: node.attributes.text,
+          subCategories: []
+        });
+        categoryIndex++;
+      }
     }
     if (currentTagName === 'enclosure') {
       rssObj.items[itemIndex].filesize = node.attributes.length;
@@ -69,6 +86,13 @@ export default function podcastParser(filePath, callback) {
   });
   saxStream.on('cdata', function(t) {
     textOrCdata(htmlTextContent(t));
+  });
+  saxStream.on('closetag', function(t) {
+    if (currentTagName === '') {
+      parentTagName = '';
+    } else {
+      currentTagName = '';
+    }
   });
   saxStream.on('end', function(t) {
     callback(rssObj);
