@@ -49,15 +49,22 @@ function renderPodcastFile(directory, podcastState, filename) {
 }
 
 function renderLocal(directory, podcastState) {
-  renderPodcastFile(directory, podcastState, '.podcast-local.xml');
+  var podcastCopy = JSON.parse(JSON.stringify(podcastState));
+  podcastCopy.prefixUrl = '';
+  renderPodcastFile(directory, podcastCopy, '.podcast-local.xml');
 }
 
 function renderRemote(directory, podcastState, prefixUrl) {
   if (!prefixUrl.endsWith('/')) {
     prefixUrl += '/';
   }
-  var podcastCopy = Object.assign({}, podcastState);
+  var podcastCopy = JSON.parse(JSON.stringify(podcastState));
   podcastCopy.image = prefixUrl + path.basename(podcastCopy.image);
+  podcastCopy.prefixUrl = prefixUrl;
+  for (var i = 0; i < podcastCopy.items.length; i++) {
+    var filename = path.basename(podcastCopy.items[i].fileurl);
+    podcastCopy.items[i].fileurl = prefixUrl + 'media/' + filename;
+  }
   renderPodcastFile(directory, podcastCopy, 'podcast.xml');
 }
 
