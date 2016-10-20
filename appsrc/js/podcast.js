@@ -6,6 +6,7 @@ import PodcastItem from './podcast-item.js';
 import podcastParser from './podcast-parser.js';
 import podcastRender from './podcast-render.js';
 import syncRemote from './sync-remote.js';
+import id3Tag from './id3-tag.js';
 var fs = require('fs');
 var path = require('path');
 var moment = require('moment');
@@ -150,6 +151,9 @@ export default class Podcast extends React.Component {
     podcastRender(this.props.directory,
       this.state.podcast,
       this.state.settings.prefixUrl);
+    for (var i = 0; i < this.state.podcast.items.length; i++) {
+      id3Tag(this.state.podcast, i, this.props.setSnackbar);
+    }
   }
   render() {
     var outerThis = this;
