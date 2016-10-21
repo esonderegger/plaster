@@ -1,5 +1,5 @@
 import React from 'react';
-import Checkbox from 'material-ui/Checkbox';
+import Toggle from 'material-ui/Toggle';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
@@ -15,14 +15,14 @@ export default class PodcastSettings extends React.Component {
     };
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
-    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
     this.closeSelf = this.closeSelf.bind(this);
   }
   handleTextFieldChange(e) {
     this.props.handleChange(e.target.name, e.target.value);
   }
-  handleCheckboxChange(e, v) {
-    this.props.handleChange('showOptionalFields', v);
+  handleToggle(e, v, k) {
+    this.props.handleChange(k, v);
   }
   handleDropdownChange(e, i, v) {
     this.props.handleChange('deploytype', v);
@@ -44,8 +44,35 @@ export default class PodcastSettings extends React.Component {
         onTouchTap={this.closeSelf}
       />
     ];
+    var sftpPasswordField = (
+      <TextField
+        hintText="The account's password"
+        floatingLabelText="Password"
+        type="password"
+        name="sftppass"
+        fullWidth={true}
+        value={this.props.settings.sftppass}
+        onChange={this.handleTextFieldChange}
+      />
+    );
+    var sftpPrivateKeyField = (
+      <TextField
+        hintText="~/.ssh/id_rsa"
+        floatingLabelText="Private Key Location"
+        name="sftpprivatekeyloc"
+        fullWidth={true}
+        value={this.props.settings.sftpprivatekeyloc}
+        onChange={this.handleTextFieldChange}
+      />
+    );
     var sftpSettings = (
       <div>
+        <Toggle
+          label="Use private key file"
+          style={{marginTop: 16, width: '15em'}}
+          toggled={this.props.settings.sftpuseprivatekey}
+          onToggle={(e, v) => this.handleToggle(e, v, 'sftpuseprivatekey')}
+        />
         <TextField
           hintText="The hostname or ip address of the server"
           floatingLabelText="Host"
@@ -62,15 +89,8 @@ export default class PodcastSettings extends React.Component {
           value={this.props.settings.sftpuser}
           onChange={this.handleTextFieldChange}
         />
-        <TextField
-          hintText="The account's password"
-          floatingLabelText="Password"
-          type="password"
-          name="sftppass"
-          fullWidth={true}
-          value={this.props.settings.sftppass}
-          onChange={this.handleTextFieldChange}
-        />
+        {this.props.settings.sftpuseprivatekey ?
+          sftpPrivateKeyField : sftpPasswordField}
         <TextField
           hintText="The directory path on the server"
           floatingLabelText="Directory Path"
@@ -115,24 +135,15 @@ export default class PodcastSettings extends React.Component {
           modal={false}
           open={this.props.open}
           onRequestClose={this.closeSelf}
+          autoScrollBodyContent={true}
         >
-          <h2>Podcast Settings</h2>
-          <Checkbox
+          <h2>General Settings</h2>
+          <Toggle
             label="Show optional fields"
-            labelPosition="left"
-            defaultChecked={this.props.settings.showOptionalFields}
-            onCheck={this.handleCheckboxChange}
+            style={{width: '15em'}}
+            toggled={this.props.settings.showOptionalFields}
+            onToggle={(e, v) => this.handleToggle(e, v, 'showOptionalFields')}
           />
-          <span>Publish method</span>
-          <DropDownMenu
-            name="deploytype"
-            value={this.props.settings.deploytype}
-            onChange={this.handleDropdownChange}
-          >
-            <MenuItem value={'none'} primaryText="None" />
-            <MenuItem value={'sftp'} primaryText="SFTP / RSync" />
-            <MenuItem value={'s3'} primaryText="Amazon S3" />
-          </DropDownMenu>
           <TextField
             hintText="https://www.mypodcast.com"
             floatingLabelText="URL Prefix"
@@ -141,6 +152,17 @@ export default class PodcastSettings extends React.Component {
             value={this.props.settings.prefixUrl}
             onChange={this.handleTextFieldChange}
           />
+          <h2>Publish Settings</h2>
+          <span style={{color: 'rgba(0, 0, 0, .87)'}}>Publish method</span>
+          <DropDownMenu
+            name="deploytype"
+            value={this.props.settings.deploytype}
+            onChange={this.handleDropdownChange}
+          >
+            <MenuItem value={'none'} primaryText="None" />
+            <MenuItem value={'sftp'} primaryText="SFTP / SCP" />
+            <MenuItem value={'s3'} primaryText="Amazon S3" />
+          </DropDownMenu>
           {this.props.settings.deploytype === 'sftp' ? sftpSettings : null}
           {this.props.settings.deploytype === 's3' ? s3Settings : null}
         </Dialog>

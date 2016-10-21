@@ -36,6 +36,8 @@ export default class Podcast extends React.Component {
         prefixUrl: '',
         sftphost: '',
         sftpuser: '',
+        sftpuseprivatekey: false,
+        sftpprivatekeyloc: '',
         sftppass: '',
         sftppath: '',
         s3bucketname: '',
