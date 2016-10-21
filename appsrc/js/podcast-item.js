@@ -1,8 +1,12 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
+import IconButton from 'material-ui/IconButton';
+import SvgMore from 'material-ui/svg-icons/navigation/expand-more';
+import SvgLess from 'material-ui/svg-icons/navigation/expand-less';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
+import MaterialAudio from './material-audio.js';
 import encodeAudio from './encode-audio.js';
 var electronApp = require('electron').remote;
 
@@ -71,11 +75,9 @@ export default class PodcastItem extends React.Component {
           <div className="podcast-item-teaser">
             <div className="item-teaser-title">{this.props.episode.title}</div>
             <div className="item-teaser-icon">
-              <FlatButton
-                label="show"
-                primary={false}
-                onTouchTap={this.props.expand}
-              />
+              <IconButton onTouchTap={this.props.expand}>
+                <SvgMore />
+              </IconButton>
             </div>
           </div>
         </div>
@@ -125,21 +127,14 @@ export default class PodcastItem extends React.Component {
                 onChange={this.handleTextFieldChange}
               />
             ) : null }
-            <audio src={audioSrc} controls>
-            </audio>
+            {audioSrc ? (
+              <MaterialAudio src={audioSrc} />
+            ) : null}
           </div>
           <div className="other-fields">
-            <FlatButton
-              label="hide"
-              primary={false}
-              onTouchTap={this.props.collapse}
-            />
-            <div>
-              <p>{this.props.episode.duration}</p>
-              <p>{this.props.episode.pubdate}</p>
-              <p>{this.props.episode.filesize}</p>
-              <p>{this.props.episode.filetype}</p>
-            </div>
+            <IconButton onTouchTap={this.props.collapse}>
+              <SvgLess />
+            </IconButton>
             <div className="other-button">
               <RaisedButton
                 label="Choose a media file"
