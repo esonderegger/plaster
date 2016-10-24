@@ -67,7 +67,7 @@
   "build": {
     "appId": "xyz.rpy.plaster",
     "mac": {
-      "category": "public.app-category.utilities",
+      "category": "public.app-category.utilities"
     },
     "win": {
       "iconUrl": "https://esonderegger.github.io/plaster/icon.ico"
