@@ -2,6 +2,7 @@ var childProcess = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
+import createWaveform from './waveform-create.js';
 
 function ffmpegPath() {
   if (os.type() === 'Darwin') {
@@ -54,7 +55,8 @@ function durationFromFfprobe(ffprobeResult) {
   return 0.0;
 }
 
-function handleUnknownFile(srcPath, destDir, handleChange, snackbar) {
+function handleUnknownFile(srcPath, destDir, handleChange,
+    snackbar, loadWaveform) {
   var opts = [
     '-v',
     'quiet',
@@ -81,7 +83,7 @@ function handleUnknownFile(srcPath, destDir, handleChange, snackbar) {
       snackbar(ex);
     }
     if (fileIsAudioVideo) {
-      measureLoudness(srcPath, destDir, handleChange, snackbar);
+      measureLoudness(srcPath, destDir, handleChange, snackbar, loadWaveform);
       handleChange('duration', bestGuessDuration);
     } else {
       snackbar('this does not appear to be an audio or video file.');
@@ -89,7 +91,8 @@ function handleUnknownFile(srcPath, destDir, handleChange, snackbar) {
   });
 }
 
-function measureLoudness(srcPath, destDir, handleChange, snackbar) {
+function measureLoudness(srcPath, destDir, handleChange,
+    snackbar, loadWaveform) {
   var opts = [
     '-i',
     srcPath,
@@ -110,11 +113,13 @@ function measureLoudness(srcPath, destDir, handleChange, snackbar) {
     var jsonStartIndex = stderrText.lastIndexOf('{');
     var jsonString = stderrText.slice(jsonStartIndex);
     var measuredJson = JSON.parse(jsonString);
-    secondPass(srcPath, destDir, measuredJson, handleChange, snackbar);
+    secondPass(srcPath, destDir, measuredJson, handleChange,
+      snackbar, loadWaveform);
   });
 }
 
-function secondPass(srcPath, destDir, loudnessInfo, handleChange, snackbar) {
+function secondPass(srcPath, destDir, loudnessInfo, handleChange,
+    snackbar, loadWaveform) {
   if (!fs.existsSync(path.join(destDir, 'media'))) {
     fs.mkdirSync(path.join(destDir, 'media'));
   }
@@ -142,15 +147,21 @@ function secondPass(srcPath, destDir, loudnessInfo, handleChange, snackbar) {
   ff.stderr.on('data', function(data) {
     stderrText += data;
   });
-  ff.on('exit', (code, signal) => {
+  ff.on('close', (code, signal) => {
     console.log(stderrText);
     var stats = fs.statSync(outPath);
     handleChange('fileurl', outPath);
     handleChange('filesize', stats.size);
     handleChange('filetype', 'audio/mpeg');
+    createWaveform(outPath, loadWaveform);
   });
 }
 
-export default function encodeAudio(srcPath, destDir, handleChange, snackbar) {
-  handleUnknownFile(srcPath, destDir, handleChange, snackbar);
+export default function encodeAudio(
+    srcPath,
+    destDir,
+    handleChange,
+    snackbar,
+    loadWaveform) {
+  handleUnknownFile(srcPath, destDir, handleChange, snackbar, loadWaveform);
 }

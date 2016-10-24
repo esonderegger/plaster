@@ -3,6 +3,7 @@ import IconButton from 'material-ui/IconButton';
 import SvgPlay from 'material-ui/svg-icons/av/play-arrow';
 import SvgPause from 'material-ui/svg-icons/av/pause';
 import Slider from 'material-ui/Slider';
+import WaveformSvg from './waveform-svg.js';
 
 export default class MaterialAudio extends React.Component {
   constructor(props) {
@@ -90,6 +91,7 @@ export default class MaterialAudio extends React.Component {
       width: '82px'
     };
     var sliderStyle = {
+      position: 'relative',
       width: 'calc(100% - 130px)'
     };
     return (
@@ -105,6 +107,9 @@ export default class MaterialAudio extends React.Component {
         </div>
         <div style={counterStyle}>{prettyPosition} / {prettyDuration}</div>
         <div style={sliderStyle}>
+          {this.props.waveform ? (
+            <WaveformSvg waveforms={this.props.waveform} />
+          ) : null}
           <Slider
             min={0.0}
             max={this.state.duration}

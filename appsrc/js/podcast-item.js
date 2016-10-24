@@ -8,18 +8,34 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import MaterialAudio from './material-audio.js';
 import encodeAudio from './encode-audio.js';
+const fs = require('fs');
 var electronApp = require('electron').remote;
 
 export default class PodcastItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      warningAboutDelete: false
+      warningAboutDelete: false,
+      waveform: null
     };
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
     this.chooseMedia = this.chooseMedia.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.loadWaveform = this.loadWaveform.bind(this);
+  }
+  componentDidMount() {
+    this.loadWaveform();
+  }
+  loadWaveform() {
+    var t = this;
+    fs.readFile(t.props.episode.fileurl + '.json', function(err, data) {
+      if (err) {
+        t.setState({waveform: null});
+      } else {
+        t.setState({waveform: JSON.parse(data)});
+      }
+    });
   }
   handleTextFieldChange(e) {
     this.props.handleChange(e.target.name, e.target.value);
@@ -35,7 +51,8 @@ export default class PodcastItem extends React.Component {
           fileNames[0],
           outerThis.props.directory,
           outerThis.props.handleChange,
-          outerThis.props.setSnackbar
+          outerThis.props.setSnackbar,
+          outerThis.loadWaveform
         );
         console.log(fileNames[0]);
       }
@@ -128,7 +145,7 @@ export default class PodcastItem extends React.Component {
               />
             ) : null }
             {audioSrc ? (
-              <MaterialAudio src={audioSrc} />
+              <MaterialAudio src={audioSrc} waveform={this.state.waveform} />
             ) : null}
           </div>
           <div className="other-fields">
