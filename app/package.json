@@ -22,8 +22,12 @@
   },
   "homepage": "https://esonderegger.github.io/plaster/",
   "dependencies": {
+    "browser-id3-writer": "^2.3.1",
     "handlebars": "^4.0.5",
     "moment": "^2.15.1",
-    "sax": "^1.2.1"
+    "readdirp": "^2.1.0",
+    "s3-sync-aws": "^1.1.1",
+    "sax": "^1.2.1",
+    "scp2": "^0.5.0"
   }
 }
