@@ -4,10 +4,10 @@ const {BrowserWindow} = electron;
 let win;
 
 function createWindow() {
-  // win = new BrowserWindow({width: 800, height: 600});
+  win = new BrowserWindow({width: 800, height: 600});
 
-  win = new BrowserWindow({width: 1100, height: 600});
-  win.webContents.openDevTools();
+  // win = new BrowserWindow({width: 1100, height: 600});
+  // win.webContents.openDevTools();
 
   win.loadURL(`file://${__dirname}/index.html`);
 
