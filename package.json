@@ -14,7 +14,9 @@
     "createpackages": "./node_modules/.bin/electron-packager ./app --all --out=tmpPackages/ --icon=icon/plaster.icns",
     "zippackages": "node zip-packages.js",
     "package": "npm run deletepackages && npm run createpackages && npm run zippackages",
-    "dev": "concurrently --kill-others \"npm run watchapp\" \"npm run electron\""
+    "dev": "concurrently --kill-others \"npm run watchapp\" \"npm run electron\"",
+    "pack": "build --dir",
+    "dist": "build -mwl --x64 --ia32"
   },
   "repository": {
     "type": "git",
@@ -24,7 +26,7 @@
     "podcast",
     "podcasting"
   ],
-  "author": "Evan Sonderegger",
+  "author": "Evan Sonderegger <evan@rpy.xyz>",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/esonderegger/plaster/issues"
@@ -37,6 +39,7 @@
     "browser-id3-writer": "^2.3.1",
     "concurrently": "^3.1.0",
     "electron": "^1.4.3",
+    "electron-builder": "^7.14.2",
     "electron-packager": "^8.1.0",
     "eslint": "^3.7.1",
     "eslint-config-google": "^0.6.0",
@@ -60,5 +63,14 @@
     "sax": "^1.2.1",
     "scp2": "^0.5.0"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "build": {
+    "appId": "xyz.rpy.plaster",
+    "mac": {
+      "category": "public.app-category.utilities",
+    },
+    "win": {
+      "iconUrl": "https://esonderegger.github.io/plaster/icon.ico"
+    }
+  }
 }
