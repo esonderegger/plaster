@@ -53,7 +53,7 @@ app.on('activate', () => {
 if (!isDev() && !isFirstTimeRunning()) {
   var platform = os.platform() + '_' + os.arch();
   var version = app.getVersion();
-  var updaterFeedUrl = 'https://plaster-nuts.herokuapp.com/' +
+  var updaterFeedUrl = 'https://plaster-nuts.herokuapp.com/update/' +
     platform + '/' + version;
   autoUpdater.setFeedURL(updaterFeedUrl);
   if (os.type() !== 'Linux') {

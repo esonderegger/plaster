@@ -16,7 +16,7 @@
     "package": "npm run deletepackages && npm run createpackages && npm run zippackages",
     "dev": "concurrently --kill-others \"npm run watchapp\" \"npm run electron\"",
     "pack": "build --dir",
-    "dist": "build"
+    "dist": "build -mwl"
   },
   "repository": {
     "type": "git",
@@ -68,10 +68,34 @@
     "appId": "4F5HTQG3W4.xyz.rpy.plaster",
     "asar": false,
     "mac": {
-      "category": "public.app-category.utilities"
+      "category": "public.app-category.utilities",
+      "files": [
+        "**/*",
+        "!compiled/ffmpeg.exe",
+        "!compiled/ffprobe.exe",
+        "!compiled/ffmpeg_linux",
+        "!compiled/ffprobe_linux"
+      ]
     },
     "win": {
-      "iconUrl": "https://esonderegger.github.io/plaster/icon.ico"
+      "iconUrl": "https://esonderegger.github.io/plaster/icon.ico",
+      "files": [
+        "**/*",
+        "!compiled/ffmpeg_mac",
+        "!compiled/ffprobe_mac",
+        "!compiled/ffmpeg_linux",
+        "!compiled/ffprobe_linux"
+      ]
+    },
+    "linux": {
+      "target": ["AppImage"],
+      "files": [
+        "**/*",
+        "!compiled/ffmpeg.exe",
+        "!compiled/ffprobe.exe",
+        "!compiled/ffmpeg_mac",
+        "!compiled/ffprobe_mac"
+      ]
     }
   }
 }
