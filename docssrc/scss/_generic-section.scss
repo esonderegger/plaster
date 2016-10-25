@@ -1,0 +1,79 @@
+@mixin generic-section {
+  padding: 5em 1em;
+}
+
+.section-inner {
+  margin: 0 auto;
+  max-width: 44em;
+
+  h2 {
+    font-size: 4vw;
+    font-weight: 300;
+    margin: .5em 0;
+  }
+
+  p {
+    font-size: 1.2em;
+    font-weight: 300;
+    margin: 1em 0;
+    max-width: 32em;
+  }
+
+  ul {
+    font-size: 1.2em;
+    font-weight: 300;
+  }
+
+  li {
+    margin: .5em 0;
+  }
+
+  @media (min-width: 784px) {
+    h2 {
+      font-size: 2em;
+    }
+  }
+}
+
+.vision-section {
+  @include generic-section;
+  color: $black-87;
+}
+
+.lufs-section {
+  @include generic-section;
+  background-color: $blue-grey-500;
+  color: $white-87;
+}
+
+.apache-section {
+  @include generic-section;
+  color: $black-87;
+}
+
+.download-section {
+  @include generic-section;
+  background-color: $blue-grey-500;
+  color: $white-87;
+}
+
+.download-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em 0;
+
+  a {
+    border: 1px solid $white-87;
+    border-radius: .2em;
+    color: $white-87;
+    display: inline-block;
+    font-size: 1.2em;
+    font-weight: 300;
+    padding: .5em 1em;
+    text-decoration: none;
+
+    &:hover {
+      background-color: $white-12;
+    }
+  }
+}
