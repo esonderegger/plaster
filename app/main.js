@@ -12,12 +12,14 @@ function isDev() {
 }
 
 function isFirstTimeRunning() {
-  var hasRunBefore = localStorage.getItem('hasRunBefore');
-  if (hasRunBefore && hasRunBefore !== 'null') {
+  if (process.argv.length === 1) {
     return false;
   }
-  localStorage.setItem('hasRunBefore', true);
-  return true;
+  const squirrelEvent = process.argv[1];
+  if (squirrelEvent === '--squirrel-firstrun') {
+    return true;
+  }
+  return false;
 }
 
 function createWindow() {
