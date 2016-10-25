@@ -1,6 +1,6 @@
 {
   "name": "plaster",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A Desktop App for Making Great Podcasts",
   "main": "app/main.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "package": "npm run deletepackages && npm run createpackages && npm run zippackages",
     "dev": "concurrently --kill-others \"npm run watchapp\" \"npm run electron\"",
     "pack": "build --dir",
-    "dist": "build -mwl --x64 --ia32"
+    "dist": "build"
   },
   "repository": {
     "type": "git",
