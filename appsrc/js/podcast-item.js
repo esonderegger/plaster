@@ -22,6 +22,7 @@ export default class PodcastItem extends React.Component {
     this.chooseMedia = this.chooseMedia.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     this.loadWaveform = this.loadWaveform.bind(this);
   }
   componentDidMount() {
@@ -64,6 +65,10 @@ export default class PodcastItem extends React.Component {
   handleClose() {
     this.setState({warningAboutDelete: false});
   }
+  handleDelete() {
+    this.setState({warningAboutDelete: false});
+    this.props.deleteItem();
+  }
   render() {
     const actions = [
       <FlatButton
@@ -74,7 +79,7 @@ export default class PodcastItem extends React.Component {
       <FlatButton
         label="Delete"
         primary={true}
-        onTouchTap={this.props.deleteItem}
+        onTouchTap={this.handleDelete}
       />
     ];
     var audioSrc = '';
