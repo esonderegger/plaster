@@ -146,8 +146,11 @@ export default class Podcast extends React.Component {
     this.setState({settingsDialogOpen: false});
   }
   publish() {
-    console.log('syncing...');
-    syncRemote(this.props.directory, this.state.settings);
+    syncRemote(
+      this.props.directory,
+      this.state.settings,
+      this.props.setSnackbar
+    );
   }
   saveChanges() {
     podcastRender(this.props.directory,
