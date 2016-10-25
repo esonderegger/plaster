@@ -54,5 +54,7 @@ if (!isDev() && !isFirstTimeRunning()) {
   var updaterFeedUrl = 'https://plaster-nuts.herokuapp.com/' +
     platform + '/' + version;
   autoUpdater.setFeedURL(updaterFeedUrl);
-  autoUpdater.checkForUpdates();
+  if (os.type() !== 'Linux') {
+    autoUpdater.checkForUpdates();
+  }
 }
