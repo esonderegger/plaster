@@ -14,7 +14,6 @@ function ffmpegPath() {
   if (os.type() === 'Linux') {
     return path.join(__dirname, 'compiled', 'ffmpeg_linux');
   }
-  console.log(os.type());
   return false;
 }
 
@@ -28,7 +27,6 @@ function ffprobePath() {
   if (os.type() === 'Linux') {
     return path.join(__dirname, 'compiled', 'ffprobe_linux');
   }
-  console.log(os.type());
   return false;
 }
 
@@ -67,7 +65,7 @@ function handleUnknownFile(srcPath, destDir, handleChange,
   ];
   var stdoutText = '';
   var ff = childProcess.spawn(ffprobePath(), opts);
-  snackbar('investigating file...');
+  snackbar('investigating file...', null);
   ff.stdout.on('data', function(data) {
     stdoutText += data;
   });
@@ -104,7 +102,7 @@ function measureLoudness(srcPath, destDir, handleChange,
   ];
   var stderrText = '';
   var ff = childProcess.spawn(ffmpegPath(), opts);
-  snackbar('measuring loudness...');
+  snackbar('measuring loudness...', null);
   ff.stderr.on('data', function(data) {
     stderrText += data;
   });

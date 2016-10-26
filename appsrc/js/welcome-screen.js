@@ -33,9 +33,8 @@ export default class WelcomeScreen extends React.Component {
     this.setState({dialogForUrl: false});
   }
   loadUrl() {
-    console.log(this.state.externalUrl);
     if (!this.state.externalUrl.startsWith('http')) {
-      console.error('this is not a url');
+      this.props.setError('This does not appear to be a URL.');
       return;
     }
     var httplib = this.state.externalUrl.startsWith('https') ? https : http;
@@ -55,7 +54,10 @@ export default class WelcomeScreen extends React.Component {
             response.on('end',
               () => outerThis.props.updatePodcastPath(dirPath[0]));
           });
-        request.on('error', err => console.error(err));
+        request.on('error', () =>
+          outerThis.props.setError('There was a problem downloading from ' +
+          outerThis.state.externalUrl)
+        );
       }
     });
   }

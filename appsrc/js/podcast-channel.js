@@ -23,12 +23,8 @@ export default class PodcastChannel extends React.Component {
   chooseImage() {
     var outerThis = this;
     electronApp.dialog.showOpenDialog(function(fileNames) {
-      if (fileNames === undefined) {
-        console.log("No file selected");
-      } else {
-        console.log(fileNames[0]);
+      if (fileNames !== undefined) {
         outerThis.props.handleChange('image', fileNames[0]);
-        console.log(outerThis.props);
         var imageBasename = path.basename(fileNames[0]);
         var target = path.join(outerThis.props.directory, imageBasename);
         var rd = fs.createReadStream(fileNames[0]);

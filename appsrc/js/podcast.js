@@ -94,7 +94,9 @@ export default class Podcast extends React.Component {
       fs.accessSync(settingsPath, fs.F_OK);
       fs.readFile(settingsPath, 'utf8', function(err, data) {
         if (err) throw err;
-        outerThis.setState({settings: JSON.parse(data)});
+        outerThis.setState({
+          settings: outerThis.merge('settings', JSON.parse(data))
+        });
       });
     } catch (e) {
       console.log('no .settings.json file found');
@@ -149,6 +151,7 @@ export default class Podcast extends React.Component {
     syncRemote(
       this.props.directory,
       this.state.settings,
+      this.props.setError,
       this.props.setSnackbar
     );
   }
@@ -165,25 +168,27 @@ export default class Podcast extends React.Component {
     return (
       <div className="podcast">
         <div className="podcast-banner">
-          <div className="other-button">
+          <div className="banner-button">
             <RaisedButton
               label="Go Home"
               onTouchTap={this.props.goHome}
             />
           </div>
-          <div className="other-button">
+          <div className="banner-button">
             <RaisedButton
               label="Settings"
               onTouchTap={this.openSettingsDialog}
             />
           </div>
-          <div className="other-button">
-            <RaisedButton
-              label="Publish"
-              onTouchTap={this.publish}
-            />
+          <div className="banner-button">
+            {this.state.settings.deploytype === 'none' ? null : (
+              <RaisedButton
+                label="Publish"
+                onTouchTap={this.publish}
+              />
+            )}
           </div>
-          <div className="other-button">
+          <div className="banner-button">
             <RaisedButton
               label="Save Changes"
               onTouchTap={this.saveChanges}

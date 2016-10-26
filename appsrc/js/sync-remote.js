@@ -5,7 +5,7 @@ var readdirp = require('readdirp');
 var fs = require('fs');
 // var path = require('path');
 
-function uploadScp(srcPath, settings, snackbar) {
+function uploadScp(srcPath, settings, errorMsg, snackbar) {
   snackbar('Publishing to ' + settings.sftphost);
   var scpSettings = {
     host: settings.sftphost,
@@ -19,19 +19,19 @@ function uploadScp(srcPath, settings, snackbar) {
   }
   scpclient.scp(srcPath, scpSettings, function(err) {
     if (err) {
-      snackbar('There was a problem connecting to ' + settings.sftphost);
+      errorMsg('There was a problem connecting to ' + settings.sftphost);
     }
   })
   .on('error', function(err) {
     console.error(err);
-    snackbar('There was a problem publishing to ' + settings.sftphost);
+    errorMsg('There was a problem publishing to ' + settings.sftphost);
   })
   .on('end', function() {
-    snackbar('The podcast was successfully published.');
+    snackbar('The podcast was successfully published.', 4000);
   });
 }
 
-function uploadS3(srcPath, settings, snackbar) {
+function uploadS3(srcPath, settings, errorMsg, snackbar) {
   // var db = level(path.join(srcPath, 'cache'));
   snackbar('Publishing to Amazon S3...');
   var db = false;
@@ -54,16 +54,16 @@ function uploadS3(srcPath, settings, snackbar) {
     prefix: ''
   }).on('data', function(file) {
     console.log(file.fullPath + ' -> ' + file.url);
-    snackbar('Publishing: ' + file.url);
+    snackbar('Publishing: ' + file.url, 4000);
   });
   files.pipe(uploader);
 }
 
-export default function syncRemote(srcPath, settings, snackbar) {
+export default function syncRemote(srcPath, settings, errorMsg, snackbar) {
   if (settings.deploytype === 's3') {
-    uploadS3(srcPath, settings, snackbar);
+    uploadS3(srcPath, settings, errorMsg, snackbar);
   }
   if (settings.deploytype === 'sftp') {
-    uploadScp(srcPath, settings, snackbar);
+    uploadScp(srcPath, settings, errorMsg, snackbar);
   }
 }
