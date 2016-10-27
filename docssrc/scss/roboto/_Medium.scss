@@ -1,0 +1,6 @@
+@font-face {
+  @include fontdef-woff($font-path, $font-name, $font-version, 'Medium');
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+}

@@ -1,0 +1,6 @@
+@font-face {
+  @include fontdef-woff($font-path, $font-name, $font-version, 'Italic');
+  font-family: Roboto;
+  font-style: italic;
+  font-weight: 400;
+}
