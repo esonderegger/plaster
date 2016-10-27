@@ -25,7 +25,7 @@ function isFirstTimeRunning() {
 }
 
 function createWindow() {
-  win = new BrowserWindow({width: 800, height: 600});
+  win = new BrowserWindow({width: 900, height: 650});
 
   if (isDev()) {
     win.webContents.openDevTools();
