@@ -69,14 +69,6 @@ export default class PodcastChannel extends React.Component {
             value={this.props.podcast.title}
             onChange={this.handleTextFieldChange}
           />
-          <TextField
-            hintText="The author of this podcast"
-            floatingLabelText="Author"
-            name="author"
-            fullWidth={true}
-            value={this.props.podcast.author}
-            onChange={this.handleTextFieldChange}
-          />
           {this.props.settings.showOptionalFields ?
           (
             <TextField
@@ -88,6 +80,14 @@ export default class PodcastChannel extends React.Component {
               onChange={this.handleTextFieldChange}
             />
           ) : null}
+          <TextField
+            hintText="The author of this podcast"
+            floatingLabelText="Author"
+            name="author"
+            fullWidth={true}
+            value={this.props.podcast.author}
+            onChange={this.handleTextFieldChange}
+          />
           <TextField
             hintText="A short description of this podcast's content"
             floatingLabelText="Description"
