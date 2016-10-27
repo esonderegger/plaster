@@ -63,8 +63,8 @@ gulp.task('connectdocs', function() {
 gulp.task('buildapp', ['rollupapp', 'cssapp']);
 
 gulp.task('watchapp', ['buildapp'], function() {
-  gulp.watch('appsrc/js/*.js', ['rollupapp']);
-  gulp.watch('appsrc/scss/*.scss', ['cssapp']);
+  gulp.watch('appsrc/js/**/*.js', ['rollupapp']);
+  gulp.watch('appsrc/scss/**/*.scss', ['cssapp']);
 });
 
 gulp.task('watchdocs', ['cssdocs'], function() {
