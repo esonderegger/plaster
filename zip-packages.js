@@ -1,10 +1,12 @@
 var fs = require('fs');
 var path = require('path');
 var archiver = require('archiver');
+var pjson = require('./package.json');
 
-function makeZipFile(arch) {
+function makeAppImageZip() {
   var archive = archiver('zip');
-  var zipPath = path.join(process.cwd(), 'docs', 'builds', arch + '.zip');
+  var zipFilename = 'plaster-' + pjson.version + '-linux.zip';
+  var zipPath = path.join(process.cwd(), 'dist', zipFilename);
   var output = fs.createWriteStream(zipPath);
 
   output.on('close', function() {
@@ -17,21 +19,10 @@ function makeZipFile(arch) {
 
   archive.pipe(output);
 
-  var tmpDir = path.join(process.cwd(), 'tmpPackages', arch);
-  archive.directory(tmpDir, false, {date: new Date()});
+  var srcFilename = 'plaster-' + pjson.version + '-x86_64.AppImage';
+  var srcPath = path.join(process.cwd(), 'dist', srcFilename);
+  archive.file(srcPath, {date: new Date()});
   archive.finalize();
 }
 
-var architectures = [
-  'darwin-x64',
-  'linux-armv7l',
-  'linux-ia32',
-  'linux-x64',
-  'mas-x64',
-  'win32-ia32',
-  'win32-x64'
-];
-
-for (var i = 0; i < architectures.length; i++) {
-  makeZipFile('plaster-' + architectures[i]);
-}
+makeAppImageZip();

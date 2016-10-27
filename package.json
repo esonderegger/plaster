@@ -11,9 +11,8 @@
     "electron": "./node_modules/.bin/electron .",
     "appinstall": "cd app && npm install",
     "deletepackages": "node delete-packages.js",
-    "createpackages": "./node_modules/.bin/electron-packager ./app --all --out=tmpPackages/ --icon=icon/plaster.icns",
     "zippackages": "node zip-packages.js",
-    "package": "npm run deletepackages && npm run createpackages && npm run zippackages",
+    "package": "npm run deletepackages && npm run dist && npm run zippackages",
     "dev": "concurrently --kill-others \"npm run watchapp\" \"npm run electron\"",
     "pack": "build --dir",
     "dist": "build -mwl"
@@ -40,7 +39,6 @@
     "concurrently": "^3.1.0",
     "electron": "^1.4.3",
     "electron-builder": "^7.14.2",
-    "electron-packager": "^8.1.0",
     "eslint": "^3.7.1",
     "eslint-config-google": "^0.6.0",
     "eslint-plugin-react": "^6.4.1",

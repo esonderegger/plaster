@@ -15,28 +15,8 @@ var deleteFolderRecursive = function(path) {
   }
 };
 
-var architectures = [
-  'darwin-x64',
-  'linux-armv7l',
-  'linux-ia32',
-  'linux-x64',
-  'mas-x64',
-  'win32-ia32',
-  'win32-x64'
-];
-
-if (!fs.existsSync(path.join(process.cwd(), 'tmpPackages'))) {
-  fs.mkdirSync(path.join(process.cwd(), 'tmpPackages'));
+if (!fs.existsSync(path.join(process.cwd(), 'dist'))) {
+  fs.mkdirSync(path.join(process.cwd(), 'dist'));
 }
 
-if (!fs.existsSync(path.join(process.cwd(), 'docs', 'builds'))) {
-  fs.mkdirSync(path.join(process.cwd(), 'docs', 'builds'));
-}
-
-for (var i = 0; i < architectures.length; i++) {
-  var arch = 'plaster-' + architectures[i];
-  var tmpDir = path.join(process.cwd(), 'tmpPackages', arch);
-  deleteFolderRecursive(tmpDir);
-  var zipPath = path.join(process.cwd(), 'docs', 'builds', arch + '.zip');
-  fs.unlinkSync(zipPath);
-}
+deleteFolderRecursive(path.join(process.cwd(), 'dist'));
