@@ -129,6 +129,7 @@ export default class PodcastCategories extends React.Component {
         onTouchTap={this.closeSelf}
       />
     ];
+    const half = 8;
     return (
         <Dialog
           actions={actions}
@@ -138,41 +139,80 @@ export default class PodcastCategories extends React.Component {
           autoScrollBodyContent={true}
         >
           <div className="podcast-categories-dialog">
-          {
-            itunesCategories.categories.map(function(category, i) {
-              return (
-                <div className="category-checkbox-group">
-                  <Checkbox key={i}
-                    label={category.categoryName}
-                    checked={categoryArray[i]}
-                    onCheck={(e, v) => outerThis.toggleCategory(
-                      e,
-                      v,
-                      category.categoryName
-                    )}
-                  />
-                  <div className="subcategories-group">
-                  {
-                    category.subCategories.map(function(subCategory, j) {
-                      return (
-                        <Checkbox key={j}
-                          label={subCategory}
-                          checked={subCategoryArray[i][j]}
-                          onCheck={(e, v) => outerThis.toggleSubCategory(
-                              e,
-                              v,
-                              category.categoryName,
-                              subCategory
-                            )}
-                        />
-                      );
-                    })
-                  }
+            <div className="podcast-categories-column">
+            {
+              itunesCategories.categories.slice(0, half).map(function(cat, i) {
+                return (
+                  <div className="category-checkbox-group">
+                    <Checkbox key={i}
+                      label={cat.categoryName}
+                      checked={categoryArray[i]}
+                      onCheck={(e, v) => outerThis.toggleCategory(
+                        e,
+                        v,
+                        cat.categoryName
+                      )}
+                    />
+                    <div className="subcategories-group">
+                    {
+                      cat.subCategories.map(function(subCategory, j) {
+                        return (
+                          <Checkbox key={j}
+                            label={subCategory}
+                            checked={subCategoryArray[i][j]}
+                            onCheck={(e, v) => outerThis.toggleSubCategory(
+                                e,
+                                v,
+                                cat.categoryName,
+                                subCategory
+                              )}
+                          />
+                        );
+                      })
+                    }
+                    </div>
                   </div>
-                </div>
-              );
-            })
-          }
+                );
+              })
+            }
+            </div>
+            <div className="podcast-categories-column">
+            {
+              itunesCategories.categories.slice(half).map(function(cat, i) {
+                return (
+                  <div className="category-checkbox-group">
+                    <Checkbox key={i + half}
+                      label={cat.categoryName}
+                      checked={categoryArray[i + half]}
+                      onCheck={(e, v) => outerThis.toggleCategory(
+                        e,
+                        v,
+                        cat.categoryName
+                      )}
+                    />
+                    <div className="subcategories-group">
+                    {
+                      cat.subCategories.map(function(subCategory, j) {
+                        return (
+                          <Checkbox key={j}
+                            label={subCategory}
+                            checked={subCategoryArray[i + half][j]}
+                            onCheck={(e, v) => outerThis.toggleSubCategory(
+                                e,
+                                v,
+                                cat.categoryName,
+                                subCategory
+                              )}
+                          />
+                        );
+                      })
+                    }
+                    </div>
+                  </div>
+                );
+              })
+            }
+            </div>
           </div>
         </Dialog>
     );

@@ -93,11 +93,17 @@
 
 .podcast-categories-dialog {
   // column-count: 2;
+  display: flex;
+  justify-content: space-between;
+
+  .podcast-categories-column {
+    width: 18em;
+  }
 
   .category-checkbox-group {
     // display: inline-block;
     padding: 0 0 .5em;
-    width: 18em;
+    // width: 18em;
   }
 
   .subcategories-group {
