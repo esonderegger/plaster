@@ -121,14 +121,17 @@ export default class PodcastChannel extends React.Component {
             value={this.props.podcast.ownerEmail}
             onChange={this.handleTextFieldChange}
           />
-          <TextField
-            hintText="Copright information"
-            floatingLabelText="Copyright"
-            name="copyright"
-            fullWidth={true}
-            value={this.props.podcast.copyright}
-            onChange={this.handleTextFieldChange}
-          />
+          {this.props.settings.showOptionalFields ?
+          (
+            <TextField
+              hintText="Copright information"
+              floatingLabelText="Copyright"
+              name="copyright"
+              fullWidth={true}
+              value={this.props.podcast.copyright}
+              onChange={this.handleTextFieldChange}
+            />
+          ) : null}
         </div>
         <div className="other-fields">
           <div className="image-section">
