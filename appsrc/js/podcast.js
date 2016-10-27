@@ -180,14 +180,14 @@ export default class Podcast extends React.Component {
               onTouchTap={this.openSettingsDialog}
             />
           </div>
-          <div className="banner-button">
-            {this.state.settings.deploytype === 'none' ? null : (
+          {this.state.settings.deploytype === 'none' ? null : (
+            <div className="banner-button">
               <RaisedButton
                 label="Publish"
                 onTouchTap={this.publish}
               />
-            )}
-          </div>
+            </div>
+          )}
           <div className="banner-button">
             <RaisedButton
               label="Save Changes"
