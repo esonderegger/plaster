@@ -9,6 +9,7 @@
     "watchapp": "./node_modules/.bin/gulp watchapp",
     "docs": "./node_modules/.bin/gulp docs",
     "electron": "./node_modules/.bin/electron .",
+    "postinstall": "npm run appinstall",
     "appinstall": "cd app && npm install",
     "deletepackages": "node delete-packages.js",
     "zippackages": "node zip-packages.js",
