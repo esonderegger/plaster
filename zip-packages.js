@@ -21,7 +21,10 @@ function makeAppImageZip() {
 
   var srcFilename = 'plaster-' + pjson.version + '-x86_64.AppImage';
   var srcPath = path.join(process.cwd(), 'dist', srcFilename);
-  archive.file(srcPath, {date: new Date()});
+  archive.file(srcPath, {
+    date: new Date(),
+    name: srcFilename
+  });
   archive.finalize();
 }
 
