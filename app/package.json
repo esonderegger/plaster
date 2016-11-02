@@ -1,6 +1,6 @@
 {
   "name": "plaster",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "productName": "Plaster",
   "description": "A Desktop App for Making Great Podcasts",
   "main": "main.js",
