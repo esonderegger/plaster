@@ -13,7 +13,7 @@
     "appinstall": "cd app && npm install",
     "deletepackages": "node delete-packages.js",
     "zippackages": "node zip-packages.js",
-    "package": "npm run deletepackages && npm run dist && npm run zippackages",
+    "package": "npm run deletepackages && npm run buildapp && npm run dist && npm run zippackages",
     "dev": "concurrently --kill-others \"npm run watchapp\" \"npm run electron\"",
     "pack": "build --dir",
     "dist": "build -mwl"
