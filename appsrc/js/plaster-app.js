@@ -4,6 +4,7 @@ import Snackbar from 'material-ui/Snackbar';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import WelcomeScreen from './welcome-screen.js';
+import PlasterUpdater from './plaster-updater.js';
 
 export default class PlasterApp extends React.Component {
   constructor(props) {
@@ -100,6 +101,7 @@ export default class PlasterApp extends React.Component {
           open={this.state.errorOpen}
           onRequestClose={this.errorClose}
         >{this.state.errorMessage}</Dialog>
+        <PlasterUpdater />
       </div>
     );
   }
