@@ -64,7 +64,7 @@
   },
   "dependencies": {},
   "build": {
-    "appId": "4F5HTQG3W4.xyz.rpy.plaster",
+    "appId": "xyz.rpy.plaster",
     "asar": false,
     "mac": {
       "category": "public.app-category.utilities",
