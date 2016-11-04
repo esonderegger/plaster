@@ -23,9 +23,7 @@ export default class PlasterUpdater extends React.Component {
     this.checkUpdateAvailable();
   }
   isDev() {
-    return (process.defaultApp ||
-      /[\\/]electron-prebuilt[\\/]/.test(process.execPath) ||
-      /[\\/]electron[\\/]/.test(process.execPath));
+    return (window.location.href.indexOf('dev=true') > -1);
   }
   checkUpdateAvailable() {
     var outerThis = this;

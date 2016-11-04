@@ -13,8 +13,10 @@ function createWindow() {
   win = new BrowserWindow({width: 900, height: 650});
   if (isDev()) {
     win.webContents.openDevTools();
+    win.loadURL(`file://${__dirname}/index.html?dev=true`);
+  } else {
+    win.loadURL(`file://${__dirname}/index.html`);
   }
-  win.loadURL(`file://${__dirname}/index.html`);
   win.on('closed', () => {
     win = null;
   });
