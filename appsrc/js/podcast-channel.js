@@ -24,21 +24,31 @@ export default class PodcastChannel extends React.Component {
     var outerThis = this;
     electronApp.dialog.showOpenDialog(function(fileNames) {
       if (fileNames !== undefined) {
-        outerThis.props.handleChange('image', fileNames[0]);
         var imageBasename = path.basename(fileNames[0]);
         var target = path.join(outerThis.props.directory, imageBasename);
-        var rd = fs.createReadStream(fileNames[0]);
-        rd.on("error", function(err) {
-          console.error(err);
-        });
-        var wr = fs.createWriteStream(target);
-        wr.on("error", function(err) {
-          console.error(err);
-        });
-        wr.on("close", function(ex) {
-          outerThis.props.handleChange('image', target);
-        });
-        rd.pipe(wr);
+        if (outerThis.props.podcast.image !== target) {
+          if (outerThis.props.podcast.image !== '' &&
+              !outerThis.props.podcast.image.startsWith('http')) {
+            var toDeletePath = outerThis.props.podcast.image;
+            if (toDeletePath.startsWith(outerThis.props.directory)) {
+              fs.unlink(toDeletePath, function() {
+                console.log(toDeletePath + ' deleted.');
+              });
+            }
+          }
+          var rd = fs.createReadStream(fileNames[0]);
+          rd.on("error", function(err) {
+            console.error(err);
+          });
+          var wr = fs.createWriteStream(target);
+          wr.on("error", function(err) {
+            console.error(err);
+          });
+          wr.on("close", function(ex) {
+            outerThis.props.handleChange('image', target);
+          });
+          rd.pipe(wr);
+        }
       }
     });
   }
