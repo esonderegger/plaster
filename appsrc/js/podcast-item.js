@@ -47,8 +47,8 @@ export default class PodcastItem extends React.Component {
       if (fileNames === undefined) {
         console.log("No file selected");
       } else {
-        if (outerThis.props.episode.fileurl !== '') {
-          var toDeletePath = outerThis.props.episode.fileurl;
+        var toDeletePath = outerThis.props.episode.fileurl;
+        if (toDeletePath !== '' && !toDeletePath.startsWith('http')) {
           fs.unlink(toDeletePath, function() {
             console.log(toDeletePath + ' deleted.');
           });
