@@ -47,6 +47,7 @@
     "gulp-connect": "^5.0.0",
     "gulp-sass": "^2.3.2",
     "handlebars": "^4.0.6",
+    "level": "~1.4.0",
     "material-ui": "^0.16.2",
     "moment": "^2.16.0",
     "react": "^15.3.2",
@@ -87,7 +88,9 @@
       ]
     },
     "linux": {
-      "target": ["AppImage"],
+      "target": [
+        "AppImage"
+      ],
       "files": [
         "**/*",
         "!compiled/ffmpeg.exe",
