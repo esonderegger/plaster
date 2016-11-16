@@ -14,9 +14,11 @@ export default class WelcomeScreen extends React.Component {
     super(props);
     this.state = {
       dialogForUrl: false,
+      folderPath: '',
       externalUrl: ''
     };
     this.handleUrlFieldChange = this.handleUrlFieldChange.bind(this);
+    this.handleFolderDialog = this.handleFolderDialog.bind(this);
     this.openUrlDialog = this.openUrlDialog.bind(this);
     this.closeUrlDialog = this.closeUrlDialog.bind(this);
     this.loadUrl = this.loadUrl.bind(this);
@@ -25,6 +27,19 @@ export default class WelcomeScreen extends React.Component {
   }
   handleUrlFieldChange(e) {
     this.setState({externalUrl: e.target.value});
+  }
+  handleFolderDialog() {
+    var outerThis = this;
+    var options = {
+      title: 'Please choose a location to save this podcast',
+      buttonLabel: 'Choose',
+      properties: ['openDirectory', 'createDirectory']
+    };
+    electronApp.dialog.showOpenDialog(options, function(dirPath) {
+      if (dirPath !== undefined) {
+        outerThis.setState({folderPath: dirPath});
+      }
+    });
   }
   openUrlDialog() {
     this.setState({dialogForUrl: true});
@@ -136,6 +151,19 @@ export default class WelcomeScreen extends React.Component {
             fullWidth={true}
             value={this.state.externalUrl}
             onChange={this.handleUrlFieldChange}
+          />
+          <TextField
+            hintText="/path/to/podcast/folder"
+            floatingLabelText="Podcast Directory Location"
+            name="folderPath"
+            fullWidth={true}
+            disabled={true}
+            value={this.state.folderPath}
+            onChange={this.handleUrlFieldChange}
+          />
+          <RaisedButton
+            label="Select Location"
+            onTouchTap={this.handleFolderDialog}
           />
         </Dialog>
       </div>
