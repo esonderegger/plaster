@@ -25,8 +25,13 @@ export default class PodcastItem extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.loadWaveform = this.loadWaveform.bind(this);
   }
-  componentDidMount() {
-    this.loadWaveform();
+  // componentDidMount() {
+  //   this.loadWaveform();
+  // }
+  componentWillReceiveProps() {
+    if (this.state.waveform === null) {
+      this.loadWaveform();
+    }
   }
   loadWaveform() {
     var t = this;
