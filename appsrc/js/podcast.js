@@ -7,9 +7,12 @@ import podcastParser from './podcast-parser.js';
 import podcastRender from './podcast-render.js';
 import syncRemote from './sync-remote.js';
 import id3Tag from './id3-tag.js';
+import createWaveform from './waveform-create.js';
 var fs = require('fs');
 var path = require('path');
 var moment = require('moment');
+const url = require('url');
+var request = require('request');
 
 export default class Podcast extends React.Component {
   constructor(props) {
@@ -47,6 +50,8 @@ export default class Podcast extends React.Component {
       activeItem: -1,
       settingsDialogOpen: false
     };
+    this.downloadRemoteFiles = this.downloadRemoteFiles.bind(this);
+    this.downloadOneRemote = this.downloadOneRemote.bind(this);
     this.updateSubState = this.updateSubState.bind(this);
     this.handleItemChange = this.handleItemChange.bind(this);
     this.newItem = this.newItem.bind(this);
@@ -77,9 +82,9 @@ export default class Podcast extends React.Component {
       fs.accessSync(localPath, fs.F_OK);
       podcastParser(localPath, function(parsed) {
         outerThis.setState({podcast: outerThis.merge('podcast', parsed)});
+        outerThis.downloadRemoteFiles();
       });
     } catch (e) {
-      console.log('no .podcast-local.xml file - trying podcast.xml');
       try {
         fs.accessSync(xmlPath, fs.F_OK);
         podcastParser(xmlPath, function(parsed) {
@@ -101,6 +106,64 @@ export default class Podcast extends React.Component {
     } catch (e) {
       console.log('no .settings.json file found');
     }
+  }
+  downloadRemoteFiles() {
+    var remoteFiles = [];
+    if (this.state.podcast.image.startsWith('http')) {
+      remoteFiles.push({
+        url: this.state.podcast.image,
+        type: 'image'
+      });
+    }
+    for (var i = 0; i < this.state.podcast.items.length; i++) {
+      if (this.state.podcast.items[i].fileurl.startsWith('http')) {
+        remoteFiles.push({
+          url: this.state.podcast.items[i].fileurl,
+          type: 'item',
+          index: i
+        });
+      }
+    }
+    this.downloadOneRemote(remoteFiles);
+  }
+  downloadOneRemote(remoteFiles) {
+    if (remoteFiles.length < 1) {
+      this.saveChanges();
+      return;
+    }
+    var outerThis = this;
+    var urlPath = url.parse(remoteFiles[0].url).pathname;
+    var urlBasename = path.basename(urlPath);
+    var localDirectory = this.props.directory;
+    if (remoteFiles[0].type === 'item') {
+      localDirectory = path.join(this.props.directory, 'media');
+      if (!fs.existsSync(localDirectory)) {
+        fs.mkdirSync(localDirectory);
+      }
+    }
+    var localPath = path.join(localDirectory, urlBasename);
+    var localFile = fs.createWriteStream(localPath);
+    request.get(remoteFiles[0].url, function(error, response, body) {
+      if (remoteFiles[0].type === 'image') {
+        outerThis.updateSubState('podcast', 'image', localPath);
+        outerThis.downloadOneRemote(remoteFiles.slice(1));
+      } else {
+        createWaveform(localPath, function() {
+          outerThis.handleItemChange(
+            remoteFiles[0].index,
+            'fileurl',
+            localPath
+          );
+          outerThis.downloadOneRemote(remoteFiles.slice(1));
+        });
+      }
+    })
+    .on('error', function(err) {
+      console.log(err);
+      outerThis.props.setError('There was a problem downloading from ' +
+        remoteFiles[1]);
+    })
+    .pipe(localFile);
   }
   updateSubState(outerKey, innerKey, value) {
     var newState = {};
