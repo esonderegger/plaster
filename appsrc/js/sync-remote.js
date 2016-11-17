@@ -20,14 +20,9 @@ function uploadScp(srcPath, settings, errorMsg, snackbar) {
   scpclient.scp(srcPath, scpSettings, function(err) {
     if (err) {
       errorMsg('There was a problem connecting to ' + settings.sftphost);
+    } else {
+      snackbar('The podcast was successfully published.', 4000);
     }
-  })
-  .on('error', function(err) {
-    console.error(err);
-    errorMsg('There was a problem publishing to ' + settings.sftphost);
-  })
-  .on('end', function() {
-    snackbar('The podcast was successfully published.', 4000);
   });
 }
 
