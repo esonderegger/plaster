@@ -2,6 +2,7 @@ import React from 'react';
 import Podcast from './podcast.js';
 import Snackbar from 'material-ui/Snackbar';
 import Dialog from 'material-ui/Dialog';
+import LinearProgress from 'material-ui/LinearProgress';
 import FlatButton from 'material-ui/FlatButton';
 import WelcomeScreen from './welcome-screen.js';
 import PlasterUpdater from './plaster-updater.js';
@@ -86,12 +87,29 @@ export default class PlasterApp extends React.Component {
         onTouchTap={this.errorClose}
       />
     ];
+    var snackbarProgress = (
+      <div style={{
+        width: '2em',
+        display: 'inline-block',
+        position: 'relative',
+        top: '-3px',
+        left: '-9px'
+      }}>
+        <LinearProgress mode="indeterminate" />
+      </div>
+    );
+    var snackbarJsx = (
+      <div>
+        {this.state.snackbarDuration ? null : snackbarProgress}
+        <span>{this.state.snackbarMessage}</span>
+      </div>
+    );
     return (
       <div className="plaster-app">
         {mainWindow}
         <Snackbar
           open={this.state.snackbarOpen}
-          message={this.state.snackbarMessage}
+          message={snackbarJsx}
           autoHideDuration={this.state.snackbarDuration}
           onRequestClose={this.snackbarClose}
         />
