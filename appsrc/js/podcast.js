@@ -124,11 +124,17 @@ export default class Podcast extends React.Component {
         });
       }
     }
-    this.downloadOneRemote(remoteFiles);
+    if (remoteFiles.length > 0) {
+      this.downloadOneRemote(remoteFiles);
+    }
   }
   downloadOneRemote(remoteFiles) {
     if (remoteFiles.length < 1) {
       this.saveChanges();
+      this.props.setSnackbar(
+        'All files from podcast have been downloaded.',
+        3000
+      );
       return;
     }
     var outerThis = this;
@@ -143,6 +149,7 @@ export default class Podcast extends React.Component {
     }
     var localPath = path.join(localDirectory, urlBasename);
     var localFile = fs.createWriteStream(localPath);
+    this.props.setSnackbar('downloading: ' + urlBasename);
     request.get(remoteFiles[0].url, function(error, response, body) {
       if (remoteFiles[0].type === 'image') {
         outerThis.updateSubState('podcast', 'image', localPath);
