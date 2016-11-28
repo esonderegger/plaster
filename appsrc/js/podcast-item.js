@@ -6,8 +6,11 @@ import SvgLess from 'material-ui/svg-icons/navigation/expand-less';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
+import DatePicker from 'material-ui/DatePicker';
+import TimePicker from 'material-ui/TimePicker';
 import MaterialAudio from './material-audio.js';
 import encodeAudio from './encode-audio.js';
+var moment = require('moment');
 const fs = require('fs');
 var electronApp = require('electron').remote;
 
@@ -15,6 +18,8 @@ export default class PodcastItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      pubDate: null,
+      pubTime: null,
       warningAboutDelete: false,
       waveform: null
     };
@@ -23,15 +28,41 @@ export default class PodcastItem extends React.Component {
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleTimeChange = this.handleTimeChange.bind(this);
     this.loadWaveform = this.loadWaveform.bind(this);
   }
-  // componentDidMount() {
-  //   this.loadWaveform();
-  // }
+  componentDidMount() {
+    var DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
+    this.setState({
+      pubDate: moment(this.props.episode.pubdate, DATE_RFC2822).toDate(),
+      pubTime: moment(this.props.episode.pubdate, DATE_RFC2822).toDate()
+    });
+  }
   componentWillReceiveProps() {
     if (this.state.waveform === null) {
       this.loadWaveform();
     }
+  }
+  handleDateChange(event, date) {
+    this.setState({pubDate: date});
+    var DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
+    var newMoment = moment(this.props.episode.pubdate, DATE_RFC2822)
+      .year(date.getYear())
+      .month(date.getMonth())
+      .date(date.getDate())
+      .format(DATE_RFC2822);
+    this.props.handleChange('pubdate', newMoment);
+  }
+  handleTimeChange(event, date) {
+    this.setState({pubTime: date});
+    var DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
+    var newMoment = moment(this.props.episode.pubdate, DATE_RFC2822)
+      .hours(date.getHours())
+      .minutes(date.getMinutes())
+      .seconds(0)
+      .format(DATE_RFC2822);
+    this.props.handleChange('pubdate', newMoment);
   }
   loadWaveform() {
     var t = this;
@@ -168,6 +199,20 @@ export default class PodcastItem extends React.Component {
             <IconButton onTouchTap={this.props.collapse}>
               <SvgLess />
             </IconButton>
+            <div>
+              <DatePicker
+                hintText="Publish Date"
+                locale="en-US"
+                value={this.state.pubDate}
+                onChange={this.handleDateChange}
+              />
+              <TimePicker
+                format="ampm"
+                hintText="Publish Time"
+                value={this.state.pubTime}
+                onChange={this.handleTimeChange}
+              />
+            </div>
             <div className="other-button">
               <RaisedButton
                 label="Choose a media file"
