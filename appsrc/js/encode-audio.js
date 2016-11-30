@@ -151,7 +151,11 @@ function secondPass(srcPath, destDir, loudnessInfo, handleChange,
     handleChange('fileurl', outPath);
     handleChange('filesize', stats.size);
     handleChange('filetype', 'audio/mpeg');
-    createWaveform(outPath, loadWaveform);
+    snackbar('creating waveform...');
+    createWaveform(outPath, function() {
+      snackbar('successfully encoded file.', 3000);
+      loadWaveform();
+    });
   });
 }
 
