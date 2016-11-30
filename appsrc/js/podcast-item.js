@@ -199,19 +199,23 @@ export default class PodcastItem extends React.Component {
             <IconButton onTouchTap={this.props.collapse}>
               <SvgLess />
             </IconButton>
-            <div>
-              <DatePicker
-                hintText="Publish Date"
-                locale="en-US"
-                value={this.state.pubDate}
-                onChange={this.handleDateChange}
-              />
-              <TimePicker
-                format="ampm"
-                hintText="Publish Time"
-                value={this.state.pubTime}
-                onChange={this.handleTimeChange}
-              />
+            <div className="item-date-time">
+              <div className="date-time-input">
+                <DatePicker
+                  hintText="Publish Date"
+                  locale="en-US"
+                  value={this.state.pubDate}
+                  onChange={this.handleDateChange}
+                />
+              </div>
+              <div className="date-time-input">
+                <TimePicker
+                  format="ampm"
+                  hintText="Publish Time"
+                  value={this.state.pubTime}
+                  onChange={this.handleTimeChange}
+                />
+              </div>
             </div>
             <div className="other-button">
               <RaisedButton

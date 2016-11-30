@@ -110,3 +110,13 @@
     padding: 0 0 .5em 2em;
   }
 }
+
+.item-date-time {
+  display: flex;
+  justify-content: space-between;
+
+  .date-time-input {
+    overflow: hidden;
+    width: 45%;
+  }
+}
