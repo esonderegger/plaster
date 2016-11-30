@@ -204,9 +204,19 @@ export default class Podcast extends React.Component {
     });
   }
   deleteItem(i) {
+    var toDeletePath = this.state.podcast.items[i].fileurl;
+    var waveformPath = toDeletePath + '.json';
     var tmpPodcast = this.state.podcast;
     tmpPodcast.items.splice(i, 1);
     this.setState({podcast: tmpPodcast});
+    if (toDeletePath !== '' && !toDeletePath.startsWith('http')) {
+      fs.unlink(toDeletePath, function() {
+        console.log(toDeletePath + ' deleted.');
+        fs.unlink(waveformPath, function() {
+          console.log(waveformPath + ' deleted.');
+        });
+      });
+    }
   }
   setActiveItem(i) {
     this.setState({activeItem: i});
