@@ -16,7 +16,8 @@ export default class PlasterApp extends React.Component {
       snackbarMessage: '',
       snackbarDuration: 4000,
       errorOpen: false,
-      errorMessage: ''
+      errorMessage: '',
+      enableAutoUpdates: false
     };
     this.goHome = this.goHome.bind(this);
     this.setSnackbar = this.setSnackbar.bind(this);
@@ -119,7 +120,7 @@ export default class PlasterApp extends React.Component {
           open={this.state.errorOpen}
           onRequestClose={this.errorClose}
         >{this.state.errorMessage}</Dialog>
-        <PlasterUpdater />
+        {this.state.enableAutoUpdates ? <PlasterUpdater /> : null}
       </div>
     );
   }
