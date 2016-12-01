@@ -18,8 +18,6 @@ export default class PodcastItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pubDate: null,
-      pubTime: null,
       warningAboutDelete: false,
       waveform: null
     };
@@ -32,20 +30,12 @@ export default class PodcastItem extends React.Component {
     this.handleTimeChange = this.handleTimeChange.bind(this);
     this.loadWaveform = this.loadWaveform.bind(this);
   }
-  componentDidMount() {
-    var DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
-    this.setState({
-      pubDate: moment(this.props.episode.pubdate, DATE_RFC2822).toDate(),
-      pubTime: moment(this.props.episode.pubdate, DATE_RFC2822).toDate()
-    });
-  }
   componentWillReceiveProps() {
     if (this.state.waveform === null) {
       this.loadWaveform();
     }
   }
   handleDateChange(event, date) {
-    this.setState({pubDate: date});
     var DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
     var newMoment = moment(this.props.episode.pubdate, DATE_RFC2822)
       .year(date.getYear())
@@ -55,7 +45,6 @@ export default class PodcastItem extends React.Component {
     this.props.handleChange('pubdate', newMoment);
   }
   handleTimeChange(event, date) {
-    this.setState({pubTime: date});
     var DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
     var newMoment = moment(this.props.episode.pubdate, DATE_RFC2822)
       .hours(date.getHours())
@@ -112,6 +101,9 @@ export default class PodcastItem extends React.Component {
     this.props.deleteItem();
   }
   render() {
+    var DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
+    var pubDate = moment(this.props.episode.pubdate, DATE_RFC2822).toDate();
+    var pubTime = moment(this.props.episode.pubdate, DATE_RFC2822).toDate();
     const actions = [
       <FlatButton
         label="Cancel"
@@ -204,7 +196,7 @@ export default class PodcastItem extends React.Component {
                 <DatePicker
                   hintText="Publish Date"
                   locale="en-US"
-                  value={this.state.pubDate}
+                  value={pubDate}
                   onChange={this.handleDateChange}
                 />
               </div>
@@ -212,7 +204,7 @@ export default class PodcastItem extends React.Component {
                 <TimePicker
                   format="ampm"
                   hintText="Publish Time"
-                  value={this.state.pubTime}
+                  value={pubTime}
                   onChange={this.handleTimeChange}
                 />
               </div>
