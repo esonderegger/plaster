@@ -78,13 +78,13 @@ function handleUnknownFile(srcPath, destDir, handleChange,
       fileIsAudioVideo = isAudioOrVideo(ffprobeJson);
       bestGuessDuration = durationFromFfprobe(ffprobeJson);
     } catch (ex) {
-      snackbar(ex);
+      snackbar(ex, 4000);
     }
     if (fileIsAudioVideo) {
       measureLoudness(srcPath, destDir, handleChange, snackbar, loadWaveform);
       handleChange('duration', bestGuessDuration);
     } else {
-      snackbar('this does not appear to be an audio or video file.');
+      snackbar('this does not appear to be an audio or video file.', 4000);
     }
   });
 }
