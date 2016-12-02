@@ -4,9 +4,11 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 const fs = require('fs');
 const path = require('path');
+var electronApp = require('electron').remote;
 
 export default class PodcastSettings extends React.Component {
   constructor(props) {
@@ -17,6 +19,7 @@ export default class PodcastSettings extends React.Component {
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.closeSelf = this.closeSelf.bind(this);
+    this.promptUserForFile = this.promptUserForFile.bind(this);
   }
   handleTextFieldChange(e) {
     this.props.handleChange(e.target.name, e.target.value);
@@ -35,6 +38,19 @@ export default class PodcastSettings extends React.Component {
       }
     });
     this.props.close();
+  }
+  promptUserForFile() {
+    var outerThis = this;
+    var options = {
+      title: 'Please choose the location of your private key file.',
+      buttonLabel: 'Choose',
+      properties: ['openFile', 'showHiddenFiles']
+    };
+    electronApp.dialog.showOpenDialog(options, function(filePath) {
+      if (filePath !== undefined) {
+        outerThis.props.handleChange('sftpprivatekeyloc', filePath[0]);
+      }
+    });
   }
   render() {
     const actions = [
@@ -56,14 +72,21 @@ export default class PodcastSettings extends React.Component {
       />
     );
     var sftpPrivateKeyField = (
-      <TextField
-        hintText="~/.ssh/id_rsa"
-        floatingLabelText="Private Key Location"
-        name="sftpprivatekeyloc"
-        fullWidth={true}
-        value={this.props.settings.sftpprivatekeyloc}
-        onChange={this.handleTextFieldChange}
-      />
+      <div>
+        <TextField
+          hintText="~/.ssh/id_rsa"
+          floatingLabelText="Private Key Location"
+          name="sftpprivatekeyloc"
+          fullWidth={true}
+          value={this.props.settings.sftpprivatekeyloc}
+          disabled={true}
+          onChange={this.handleTextFieldChange}
+        />
+        <RaisedButton
+          label="Select Private Key"
+          onTouchTap={this.promptUserForFile}
+        />
+      </div>
     );
     var sftpSettings = (
       <div>
