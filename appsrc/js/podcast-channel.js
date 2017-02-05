@@ -32,7 +32,6 @@ export default class PodcastChannel extends React.Component {
             var toDeletePath = outerThis.props.podcast.image;
             if (toDeletePath.startsWith(outerThis.props.directory)) {
               fs.unlink(toDeletePath, function() {
-                console.log(toDeletePath + ' deleted.');
               });
             }
           }

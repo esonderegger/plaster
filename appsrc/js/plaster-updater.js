@@ -28,19 +28,14 @@ export default class PlasterUpdater extends React.Component {
   checkUpdateAvailable() {
     var outerThis = this;
     var version = electronApp.getVersion();
-    electronUpdater.on('error', err => {
-      console.log('there was a problem in the update process.');
-      console.log(err);
-    });
-    electronUpdater.on('checking-for-update', () => {
-      console.log('checking for an update...');
-    });
-    electronUpdater.on('update-available', () => {
-      console.log('there is an update available!!');
-    });
-    electronUpdater.on('update-not-available', () => {
-      console.log('Plaster is currently up to date.');
-    });
+    // electronUpdater.on('error', err => {
+    // });
+    // electronUpdater.on('checking-for-update', () => {
+    // });
+    // electronUpdater.on('update-available', () => {
+    // });
+    // electronUpdater.on('update-not-available', () => {
+    // });
     electronUpdater.on('update-downloaded', () => {
       outerThis.setState({
         updateDownloaded: true,
@@ -51,7 +46,6 @@ export default class PlasterUpdater extends React.Component {
       var osxUrl = 'https://plaster-nuts.herokuapp.com/update/osx/' + version;
       if (!this.isDev()) {
         electronUpdater.setFeedURL(osxUrl);
-        console.log(osxUrl);
         electronUpdater.checkForUpdates();
       }
     }
@@ -59,7 +53,6 @@ export default class PlasterUpdater extends React.Component {
       var winUrl = 'https://plaster-nuts.herokuapp.com/update/win/' + version;
       if (!this.isDev()) {
         electronUpdater.setFeedURL(winUrl);
-        console.log(winUrl);
         electronUpdater.checkForUpdates();
       }
     }

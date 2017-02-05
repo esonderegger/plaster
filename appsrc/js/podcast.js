@@ -91,7 +91,7 @@ export default class Podcast extends React.Component {
           outerThis.setState({podcast: outerThis.merge('podcast', parsed)});
         });
       } catch (e) {
-        console.log('no podcast.xml - starting from scratch');
+        console.err('no podcast.xml - starting from scratch');
       }
     }
     var settingsPath = path.join(this.props.directory, '.settings.json');
@@ -104,7 +104,7 @@ export default class Podcast extends React.Component {
         });
       });
     } catch (e) {
-      console.log('no .settings.json file found');
+      console.err('no .settings.json file found');
     }
   }
   downloadRemoteFiles() {
@@ -166,7 +166,7 @@ export default class Podcast extends React.Component {
       }
     })
     .on('error', function(err) {
-      console.log(err);
+      console.err(err);
       outerThis.props.setError('There was a problem downloading from ' +
         remoteFiles[1]);
     })
@@ -211,9 +211,7 @@ export default class Podcast extends React.Component {
     this.setState({podcast: tmpPodcast});
     if (toDeletePath !== '' && !toDeletePath.startsWith('http')) {
       fs.unlink(toDeletePath, function() {
-        console.log(toDeletePath + ' deleted.');
         fs.unlink(waveformPath, function() {
-          console.log(waveformPath + ' deleted.');
         });
       });
     }

@@ -107,7 +107,6 @@ function measureLoudness(srcPath, destDir, handleChange,
     stderrText += data;
   });
   ff.on('exit', (code, signal) => {
-    console.log(stderrText);
     var jsonStartIndex = stderrText.lastIndexOf('{');
     var jsonString = stderrText.slice(jsonStartIndex);
     var measuredJson = JSON.parse(jsonString);
@@ -139,14 +138,9 @@ function secondPass(srcPath, destDir, loudnessInfo, handleChange,
     '192k',
     outPath
   ];
-  var stderrText = '';
   var ff = childProcess.spawn(ffmpegPath(), opts);
   snackbar('encoding to mp3...');
-  ff.stderr.on('data', function(data) {
-    stderrText += data;
-  });
   ff.on('close', (code, signal) => {
-    console.log(stderrText);
     var stats = fs.statSync(outPath);
     handleChange('fileurl', outPath);
     handleChange('filesize', stats.size);

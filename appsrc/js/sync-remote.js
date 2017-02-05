@@ -48,7 +48,6 @@ function uploadS3(srcPath, settings, errorMsg, snackbar) {
     concurrency: 16,
     prefix: ''
   }).on('data', function(file) {
-    console.log(file.fullPath + ' -> ' + file.url);
     snackbar('Publishing: ' + file.url, 4000);
   });
   files.pipe(uploader);

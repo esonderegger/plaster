@@ -70,12 +70,11 @@ export default class PodcastItem extends React.Component {
     var outerThis = this;
     electronApp.dialog.showOpenDialog(function(fileNames) {
       if (fileNames === undefined) {
-        console.log("No file selected");
+        console.err("No file selected");
       } else {
         var toDeletePath = outerThis.props.episode.fileurl;
         if (toDeletePath !== '' && !toDeletePath.startsWith('http')) {
           fs.unlink(toDeletePath, function() {
-            console.log(toDeletePath + ' deleted.');
           });
         }
         outerThis.props.handleChange('fileurl', fileNames[0]);
@@ -86,7 +85,6 @@ export default class PodcastItem extends React.Component {
           outerThis.props.setSnackbar,
           outerThis.loadWaveform
         );
-        console.log(fileNames[0]);
       }
     });
   }
