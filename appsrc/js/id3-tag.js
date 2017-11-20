@@ -1,5 +1,5 @@
-var ID3Writer = require('browser-id3-writer');
-var fs = require('fs');
+const ID3Writer = require('browser-id3-writer');
+const fs = require('fs');
 
 function writeTag(podObj, itemIndex, snackbar) {
   var itemObj = podObj.items[itemIndex];

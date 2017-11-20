@@ -148,13 +148,13 @@ export default class PodcastChannel extends React.Component {
             <RaisedButton
               className="choose-image-button"
               label="Choose an image file"
-              onTouchTap={this.chooseImage}
+              onClick={this.chooseImage}
             />
           </div>
           <div className="other-button">
             <RaisedButton
               label="Choose categories"
-              onTouchTap={this.openCategories}
+              onClick={this.openCategories}
             />
           </div>
         </div>

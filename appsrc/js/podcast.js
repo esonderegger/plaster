@@ -8,11 +8,11 @@ import podcastRender from './podcast-render.js';
 import syncRemote from './sync-remote.js';
 import id3Tag from './id3-tag.js';
 import createWaveform from './waveform-create.js';
-var fs = require('fs');
-var path = require('path');
-var moment = require('moment');
+const fs = require('fs');
+const path = require('path');
+const moment = require('moment');
 const url = require('url');
-var request = require('request');
+const request = require('request');
 
 export default class Podcast extends React.Component {
   constructor(props) {
@@ -75,6 +75,7 @@ export default class Podcast extends React.Component {
     return newObject;
   }
   componentDidMount() {
+    console.log(this.props.directory);
     var localPath = path.join(this.props.directory, '.podcast-local.xml');
     var xmlPath = path.join(this.props.directory, 'podcast.xml');
     var outerThis = this;
@@ -234,6 +235,12 @@ export default class Podcast extends React.Component {
     );
   }
   saveChanges() {
+    const outPath = path.join(this.props.directory, 'feed.json');
+    fs.writeFile(outPath, JSON.stringify(this.state.podcast, null, 2), e => {
+      if (e !== null) {
+        console.error(e);
+      }
+    });
     podcastRender(this.props.directory,
       this.state.podcast,
       this.state.settings.prefixUrl);
@@ -249,27 +256,27 @@ export default class Podcast extends React.Component {
           <div className="banner-button">
             <RaisedButton
               label="Go Home"
-              onTouchTap={this.props.goHome}
+              onClick={this.props.goHome}
             />
           </div>
           <div className="banner-button">
             <RaisedButton
               label="Settings"
-              onTouchTap={this.openSettingsDialog}
+              onClick={this.openSettingsDialog}
             />
           </div>
           {this.state.settings.deploytype === 'none' ? null : (
             <div className="banner-button">
               <RaisedButton
                 label="Publish"
-                onTouchTap={this.publish}
+                onClick={this.publish}
               />
             </div>
           )}
           <div className="banner-button">
             <RaisedButton
               label="Save Changes"
-              onTouchTap={this.saveChanges}
+              onClick={this.saveChanges}
             />
           </div>
         </div>
@@ -290,7 +297,7 @@ export default class Podcast extends React.Component {
             <div>
               <RaisedButton
                 label="New Episode"
-                onTouchTap={this.newItem}
+                onClick={this.newItem}
               />
             </div>
           </div>

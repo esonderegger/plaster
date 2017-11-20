@@ -3,7 +3,7 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
-var electronApp = require('electron').remote;
+const electronApp = require('electron').remote;
 const path = require('path');
 const http = require('http');
 const https = require('https');
@@ -15,9 +15,9 @@ export default class WelcomeScreen extends React.Component {
     this.state = {
       dialog: false,
       dialogText: '',
-      goVerb: '',
+      goVerb: 'aa',
       folderPath: '',
-      externalUrl: ''
+      externalUrl: '',
     };
     this.handleUrlFieldChange = this.handleUrlFieldChange.bind(this);
     this.promptUserForDirectory = this.promptUserForDirectory.bind(this);
@@ -31,11 +31,11 @@ export default class WelcomeScreen extends React.Component {
     this.setState({externalUrl: e.target.value});
   }
   promptUserForDirectory() {
-    var outerThis = this;
-    var options = {
+    const outerThis = this;
+    const options = {
       title: 'Please choose a location for this podcast',
       buttonLabel: 'Choose',
-      properties: ['openDirectory', 'createDirectory']
+      properties: ['openDirectory', 'createDirectory'],
     };
     electronApp.dialog.showOpenDialog(options, function(dirPath) {
       if (dirPath !== undefined) {
@@ -44,46 +44,46 @@ export default class WelcomeScreen extends React.Component {
     });
   }
   createNewDialog() {
-    var createText = 'Please select a location on this computer ' +
+    const createText = 'Please select a location on this computer ' +
       'where you would like to save your podcast.';
     this.setState({
       dialog: true,
       dialogText: createText,
-      goVerb: 'Create'
+      goVerb: 'Create',
     });
   }
   editDialog() {
-    var editText = 'Please select the location on this computer ' +
+    const editText = 'Please select the location on this computer ' +
       'of the podcast you would like to edit.';
     this.setState({
       dialog: true,
       dialogText: editText,
-      goVerb: 'Edit'
+      goVerb: 'Edit',
     });
   }
   openUrlDialog() {
-    var importText = 'Please enter the url of the podcast you would like to ' +
-      'import and select a location on this computer where you would like ' +
-      'to save the files.';
+    const importText = 'Please enter the url of the podcast you would ' +
+      'like to import and select a location on this computer where you ' +
+      'would like to save the files.';
     this.setState({
       dialog: true,
       dialogText: importText,
-      goVerb: 'Import'
+      goVerb: 'Import',
     });
   }
   closeDialog() {
     this.setState({
       dialog: false,
       dialogText: '',
-      goVerb: ''
+      goVerb: '',
     });
   }
   goToPodcast() {
     if (this.state.goVerb === 'Import') {
-      var httplib = this.state.externalUrl.startsWith('https') ? https : http;
-      var outerThis = this;
-      var xmlPath = path.join(this.state.folderPath, '.podcast-local.xml');
-      var xmlFile = fs.createWriteStream(xmlPath);
+      const httplib = this.state.externalUrl.startsWith('https') ? https : http;
+      const outerThis = this;
+      const xmlPath = path.join(this.state.folderPath, '.podcast-local.xml');
+      const xmlFile = fs.createWriteStream(xmlPath);
       const request = httplib.get(
         outerThis.state.externalUrl, function(response) {
           response.pipe(xmlFile);
@@ -101,7 +101,7 @@ export default class WelcomeScreen extends React.Component {
     }
   }
   render() {
-    var readyToGo = false;
+    let readyToGo = false;
     if (this.state.goVerb === 'Import') {
       if (this.state.folderPath && this.state.externalUrl) {
         readyToGo = true;
@@ -109,20 +109,20 @@ export default class WelcomeScreen extends React.Component {
     } else if (this.state.folderPath) {
       readyToGo = true;
     }
-    var actions = [
+    const actions = [
       <FlatButton
         label="Cancel"
         primary={false}
-        onTouchTap={this.closeDialog}
+        onClick={this.closeDialog}
       />,
       <FlatButton
         label={this.state.goVerb}
         primary={true}
         disabled={!readyToGo}
-        onTouchTap={this.goToPodcast}
-      />
+        onClick={this.goToPodcast}
+      />,
     ];
-    var urlField = (
+    const urlField = (
       <TextField
         hintText="https://www.example.com/podcast.xml"
         floatingLabelText="URL"
@@ -140,19 +140,19 @@ export default class WelcomeScreen extends React.Component {
           <div className="welcome-button">
             <RaisedButton
               label="Create a new podcast"
-              onTouchTap={this.createNewDialog}
+              onClick={this.createNewDialog}
             />
           </div>
           <div className="welcome-button">
             <RaisedButton
               label="Edit a podcast on this computer"
-              onTouchTap={this.editDialog}
+              onClick={this.editDialog}
             />
           </div>
           <div className="welcome-button">
             <RaisedButton
               label="Import a podcast from a url"
-              onTouchTap={this.openUrlDialog}
+              onClick={this.openUrlDialog}
             />
           </div>
         </div>
@@ -175,7 +175,7 @@ export default class WelcomeScreen extends React.Component {
           />
           <RaisedButton
             label="Select Location"
-            onTouchTap={this.promptUserForDirectory}
+            onClick={this.promptUserForDirectory}
           />
         </Dialog>
       </div>

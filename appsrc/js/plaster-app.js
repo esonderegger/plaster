@@ -1,5 +1,6 @@
 import React from 'react';
-import Podcast from './podcast.js';
+// import Podcast from './podcast.js';
+import PodcastEditor from './PodcastEditor.jsx';
 import Snackbar from 'material-ui/Snackbar';
 import Dialog from 'material-ui/Dialog';
 import LinearProgress from 'material-ui/LinearProgress';
@@ -17,7 +18,7 @@ export default class PlasterApp extends React.Component {
       snackbarDuration: 4000,
       errorOpen: false,
       errorMessage: '',
-      enableAutoUpdates: false
+      enableAutoUpdates: false,
     };
     this.goHome = this.goHome.bind(this);
     this.setSnackbar = this.setSnackbar.bind(this);
@@ -27,7 +28,7 @@ export default class PlasterApp extends React.Component {
     this.updatePodcastPath = this.updatePodcastPath.bind(this);
   }
   componentDidMount() {
-    var pathFromLocalStorage = localStorage.getItem('podcastDirectory');
+    const pathFromLocalStorage = localStorage.getItem('podcastDirectory');
     if (pathFromLocalStorage && pathFromLocalStorage !== 'null') {
       this.setState({podcastPath: pathFromLocalStorage});
     }
@@ -44,27 +45,27 @@ export default class PlasterApp extends React.Component {
     this.setState({
       snackbarOpen: true,
       snackbarMessage: message,
-      snackbarDuration: duration
+      snackbarDuration: duration,
     });
   }
   snackbarClose() {
     this.setState({
-      snackbarOpen: false
+      snackbarOpen: false,
     });
   }
   setError(message) {
     this.setState({
       errorOpen: true,
-      errorMessage: message
+      errorMessage: message,
     });
   }
   errorClose() {
     this.setState({
-      errorOpen: false
+      errorOpen: false,
     });
   }
   render() {
-    var mainWindow = (
+    let mainWindow = (
       <WelcomeScreen
         updatePodcastPath={this.updatePodcastPath}
         setSnackbar={this.setSnackbar}
@@ -73,7 +74,7 @@ export default class PlasterApp extends React.Component {
     );
     if (this.state.podcastPath) {
       mainWindow = (
-        <Podcast
+        <PodcastEditor
           directory={this.state.podcastPath}
           goHome={this.goHome}
           setSnackbar={this.setSnackbar}
@@ -85,21 +86,21 @@ export default class PlasterApp extends React.Component {
       <FlatButton
         label="Ok"
         primary={true}
-        onTouchTap={this.errorClose}
-      />
+        onClick={this.errorClose}
+      />,
     ];
-    var snackbarProgress = (
+    const snackbarProgress = (
       <div style={{
         width: '2em',
         display: 'inline-block',
         position: 'relative',
         top: '-3px',
-        left: '-9px'
+        left: '-9px',
       }}>
         <LinearProgress mode="indeterminate" />
       </div>
     );
-    var snackbarJsx = (
+    const snackbarJsx = (
       <div>
         {this.state.snackbarDuration ? null : snackbarProgress}
         <span>{this.state.snackbarMessage}</span>

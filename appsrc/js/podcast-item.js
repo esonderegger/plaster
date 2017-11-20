@@ -106,12 +106,12 @@ export default class PodcastItem extends React.Component {
       <FlatButton
         label="Cancel"
         primary={false}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
       <FlatButton
         label="Delete"
         primary={true}
-        onTouchTap={this.handleDelete}
+        onClick={this.handleDelete}
       />
     ];
     var audioSrc = '';
@@ -129,7 +129,7 @@ export default class PodcastItem extends React.Component {
           <div className="podcast-item-teaser">
             <div className="item-teaser-title">{this.props.episode.title}</div>
             <div className="item-teaser-icon">
-              <IconButton onTouchTap={this.props.expand}>
+              <IconButton onClick={this.props.expand}>
                 <SvgMore />
               </IconButton>
             </div>
@@ -186,7 +186,7 @@ export default class PodcastItem extends React.Component {
             ) : null}
           </div>
           <div className="other-fields">
-            <IconButton onTouchTap={this.props.collapse}>
+            <IconButton onClick={this.props.collapse}>
               <SvgLess />
             </IconButton>
             <div className="item-date-time">
@@ -210,13 +210,13 @@ export default class PodcastItem extends React.Component {
             <div className="other-button">
               <RaisedButton
                 label="Choose a media file"
-                onTouchTap={this.chooseMedia}
+                onClick={this.chooseMedia}
               />
             </div>
             <div className="other-button">
               <RaisedButton
                 label="Delete Episode"
-                onTouchTap={this.handleOpen}
+                onClick={this.handleOpen}
                 style={{marginLeft: '1em'}}
               />
             </div>
