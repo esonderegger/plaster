@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 const fs = require('fs');
 const path = require('path');
-var electronApp = require('electron').remote;
+const electronApp = require('electron').remote;
 
 export default class PodcastSettings extends React.Component {
   constructor(props) {
@@ -57,7 +57,7 @@ export default class PodcastSettings extends React.Component {
       <FlatButton
         label="Close"
         primary={false}
-        onTouchTap={this.closeSelf}
+        onClick={this.closeSelf}
       />
     ];
     var sftpPasswordField = (
@@ -84,7 +84,7 @@ export default class PodcastSettings extends React.Component {
         />
         <RaisedButton
           label="Select Private Key"
-          onTouchTap={this.promptUserForFile}
+          onClick={this.promptUserForFile}
         />
       </div>
     );

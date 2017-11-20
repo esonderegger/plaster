@@ -1,12 +1,12 @@
-var fs = require('fs');
-var path = require('path');
-var handlebars = require('handlebars');
+const fs = require('fs');
+const path = require('path');
+const handlebars = require('handlebars');
 import moment from 'moment';
 
 const escape = {
   '&': '&#x26;',
   '<': '&#x3C;',
-  '>': '&#x3E;'
+  '>': '&#x3E;',
 };
 
 const badChars = /[&<>]/g;

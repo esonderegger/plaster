@@ -2,9 +2,9 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 const os = require('os');
-var electronRemote = require('electron').remote;
-var electronApp = electronRemote.app;
-var electronUpdater = electronRemote.autoUpdater;
+const electronRemote = require('electron').remote;
+const electronApp = electronRemote.app;
+const electronUpdater = electronRemote.autoUpdater;
 
 export default class PlasterUpdater extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ export default class PlasterUpdater extends React.Component {
     this.state = {
       updateOpen: false,
       updateMessage: 'An update is available. Would you like to install it?',
-      updateDownloaded: false
+      updateDownloaded: false,
     };
     this.isDev = this.isDev.bind(this);
     this.checkUpdateAvailable = this.checkUpdateAvailable.bind(this);
@@ -26,8 +26,8 @@ export default class PlasterUpdater extends React.Component {
     return (window.location.href.indexOf('dev=true') > -1);
   }
   checkUpdateAvailable() {
-    var outerThis = this;
-    var version = electronApp.getVersion();
+    const outerThis = this;
+    const version = electronApp.getVersion();
     // electronUpdater.on('error', err => {
     // });
     // electronUpdater.on('checking-for-update', () => {
@@ -39,18 +39,18 @@ export default class PlasterUpdater extends React.Component {
     electronUpdater.on('update-downloaded', () => {
       outerThis.setState({
         updateDownloaded: true,
-        updateOpen: true
+        updateOpen: true,
       });
     });
     if (os.type() === 'Darwin') {
-      var osxUrl = 'https://plaster-nuts.herokuapp.com/update/osx/' + version;
+      const osxUrl = 'https://plaster-nuts.herokuapp.com/update/osx/' + version;
       if (!this.isDev()) {
         electronUpdater.setFeedURL(osxUrl);
         electronUpdater.checkForUpdates();
       }
     }
     if (os.type() === 'Windows_NT') {
-      var winUrl = 'https://plaster-nuts.herokuapp.com/update/win/' + version;
+      const winUrl = 'https://plaster-nuts.herokuapp.com/update/win/' + version;
       if (!this.isDev()) {
         electronUpdater.setFeedURL(winUrl);
         electronUpdater.checkForUpdates();
@@ -62,7 +62,7 @@ export default class PlasterUpdater extends React.Component {
   }
   updateClose() {
     this.setState({
-      updateOpen: false
+      updateOpen: false,
     });
   }
   render() {
@@ -70,13 +70,13 @@ export default class PlasterUpdater extends React.Component {
       <FlatButton
         label="Not Now"
         primary={false}
-        onTouchTap={this.updateClose}
+        onClick={this.updateClose}
       />,
       <FlatButton
         label="Install and Restart"
         primary={true}
-        onTouchTap={this.installRestart}
-      />
+        onClick={this.installRestart}
+      />,
     ];
     return (
       <Dialog

@@ -11,15 +11,15 @@ export default class MaterialAudio extends React.Component {
     this.state = {
       playing: false,
       duration: 1.0,
-      position: 0.0
+      position: 0.0,
     };
     this.playPause = this.playPause.bind(this);
     this.handleSlider = this.handleSlider.bind(this);
     this.audioElement = null;
   }
   componentDidMount() {
-    var audioElement = this.refs.audioElement;
-    var t = this;
+    const audioElement = this.refs.audioElement;
+    const t = this;
     audioElement.addEventListener('durationchange', function() {
       t.setState({duration: audioElement.duration});
     });
@@ -32,18 +32,18 @@ export default class MaterialAudio extends React.Component {
     t.audioElement = audioElement;
   }
   zeroPad(n, p, c) {
-    var padChar = typeof c === 'undefined' ? '0' : c;
-    var pad = new Array(1 + p).join(padChar);
+    const padChar = typeof c === 'undefined' ? '0' : c;
+    const pad = new Array(1 + p).join(padChar);
     return (pad + n).slice(-pad.length);
   }
   prettyTime(floatSeconds) {
     if (!parseFloat(floatSeconds)) {
       floatSeconds = 0.0;
     }
-    var outStr = '';
-    var hours = Math.floor(floatSeconds / 3600);
+    const outStr = '';
+    const hours = Math.floor(floatSeconds / 3600);
     floatSeconds -= hours * 3600;
-    var minutes = Math.floor(floatSeconds / 60);
+    const minutes = Math.floor(floatSeconds / 60);
     floatSeconds -= minutes * 60;
     if (hours > 0) {
       outStr += hours + ':' + this.zeroPad(minutes, 2) + ':';
@@ -66,38 +66,38 @@ export default class MaterialAudio extends React.Component {
     this.audioElement.currentTime = value;
   }
   render() {
-    var prettyPosition = this.prettyTime(this.state.position);
-    var prettyDuration = this.prettyTime(this.state.duration);
-    var outerStyle = {
+    const prettyPosition = this.prettyTime(this.state.position);
+    const prettyDuration = this.prettyTime(this.state.duration);
+    const outerStyle = {
       width: '100%',
       display: 'flex',
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
     };
-    var playStyle = {
+    const playStyle = {
       left: '-10px',
       marginTop: '8px',
       position: 'relative',
-      width: '48px'
+      width: '48px',
     };
-    // var playColor = 'rgba(0, 188, 212, .87)';
-    var playColor = 'rgba(0, 0, 0, .87)';
-    var counterStyle = {
+    // const playColor = 'rgba(0, 188, 212, .87)';
+    const playColor = 'rgba(0, 0, 0, .87)';
+    const counterStyle = {
       color: 'rgba(0, 0, 0, .54)',
       fontSize: '12px',
       left: '-16px',
       marginTop: '26px',
       position: 'relative',
       textAlign: 'center',
-      width: '82px'
+      width: '82px',
     };
-    var sliderStyle = {
+    const sliderStyle = {
       position: 'relative',
-      width: 'calc(100% - 130px)'
+      width: 'calc(100% - 130px)',
     };
     return (
       <div style={outerStyle}>
         <div style={playStyle}>
-          <IconButton onTouchTap={this.playPause}>
+          <IconButton onClick={this.playPause}>
             {this.state.playing ? (
               <SvgPause color={playColor} />
             ) : (

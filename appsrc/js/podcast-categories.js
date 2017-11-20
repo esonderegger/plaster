@@ -126,7 +126,7 @@ export default class PodcastCategories extends React.Component {
       <FlatButton
         label="Close"
         primary={false}
-        onTouchTap={this.closeSelf}
+        onClick={this.closeSelf}
       />
     ];
     const half = 8;

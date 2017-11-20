@@ -1,4 +1,4 @@
-var childProcess = require('child_process');
+const childProcess = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
@@ -31,7 +31,7 @@ function ffprobePath() {
 }
 
 function isAudioOrVideo(ffprobeResult) {
-  for (var i = 0; i < ffprobeResult.streams.length; i++) {
+  for (let i = 0; i < ffprobeResult.streams.length; i++) {
     if (ffprobeResult.streams[i].hasOwnProperty('duration')) {
       return true;
     }
@@ -40,12 +40,12 @@ function isAudioOrVideo(ffprobeResult) {
 }
 
 function durationFromFfprobe(ffprobeResult) {
-  for (var i = 0; i < ffprobeResult.streams.length; i++) {
+  for (let i = 0; i < ffprobeResult.streams.length; i++) {
     if (ffprobeResult.streams[i].codec_type === 'audio') {
       return ffprobeResult.streams[i].duration;
     }
   }
-  for (var j = 0; j < ffprobeResult.streams.length; j++) {
+  for (let j = 0; j < ffprobeResult.streams.length; j++) {
     if (ffprobeResult.streams[j].hasOwnProperty('duration')) {
       return ffprobeResult.streams[j].duration;
     }

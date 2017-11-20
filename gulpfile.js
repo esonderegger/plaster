@@ -1,38 +1,39 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var connect = require('gulp-connect');
-var rollup = require('rollup').rollup;
-var commonjs = require('rollup-plugin-commonjs');
-var nodeResolve = require('rollup-plugin-node-resolve');
-var rollupEnv = require('rollup-plugin-env');
-var rollupBabel = require('rollup-plugin-babel');
+const gulp = require('gulp');
+const sass = require('gulp-sass');
+const connect = require('gulp-connect');
+const rollup = require('rollup').rollup;
+const commonjs = require('rollup-plugin-commonjs');
+const nodeResolve = require('rollup-plugin-node-resolve');
+const rollupEnv = require('rollup-plugin-env');
+const rollupBabel = require('rollup-plugin-babel');
 
 gulp.task('rollupapp', function() {
   return rollup({
     entry: 'appsrc/js/plaster.js',
     plugins: [
       rollupEnv({
-        NODE_ENV: 'production'
+        NODE_ENV: 'production',
       }),
       nodeResolve({
         jsnext: true,
-        main: true
+        main: true,
       }),
       commonjs({
-        include: 'node_modules/**'
+        include: 'node_modules/**',
       }),
       rollupBabel({
         babelrc: false,
         exclude: 'node_modules/**',
-        presets: ['es2015-rollup', 'react']
-      })
-    ]
+        presets: ['es2015-rollup', 'react'],
+      }),
+    ],
   }).then(function(bundle) {
     return bundle.write({
       format: 'iife',
-      sourceMap: true,
+      indent: false,
+      sourceMap: false,
       moduleName: 'plasterBundle',
-      dest: 'app/compiled/plaster.js'
+      dest: 'app/compiled/plaster.js',
     });
   });
 });
@@ -40,7 +41,7 @@ gulp.task('rollupapp', function() {
 gulp.task('cssapp', function() {
   return gulp.src('appsrc/scss/plaster.scss')
   .pipe(sass({
-    outputStyle: 'compressed'
+    outputStyle: 'compressed',
   }))
   .pipe(gulp.dest('app/compiled'));
 });
@@ -48,7 +49,7 @@ gulp.task('cssapp', function() {
 gulp.task('cssdocs', function() {
   return gulp.src('docssrc/scss/plaster-docs.scss')
   .pipe(sass({
-    outputStyle: 'compressed'
+    outputStyle: 'compressed',
   }))
   .pipe(gulp.dest('docs/css'));
 });
@@ -56,7 +57,7 @@ gulp.task('cssdocs', function() {
 gulp.task('connectdocs', function() {
   connect.server({
     root: 'docs',
-    livereload: false
+    livereload: false,
   });
 });
 
