@@ -34,7 +34,7 @@
   "homepage": "https://esonderegger.github.io/plaster/",
   "devDependencies": {
     "archiver": "^2.1.0",
-    "babel-preset-env": "^3.0.0",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "browser-id3-writer": "^4.0.0",
     "concurrently": "^3.5.0",
@@ -63,7 +63,10 @@
     "sax": "^1.2.4",
     "scp2": "^0.5.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "babel-register": "^6.26.0",
+    "prop-types": "^15.6.0"
+  },
   "build": {
     "appId": "xyz.rpy.plaster",
     "asar": false,

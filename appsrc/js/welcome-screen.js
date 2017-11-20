@@ -15,7 +15,7 @@ export default class WelcomeScreen extends React.Component {
     this.state = {
       dialog: false,
       dialogText: '',
-      goVerb: '',
+      goVerb: 'aa',
       folderPath: '',
       externalUrl: '',
     };
