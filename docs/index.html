@@ -4,86 +4,65 @@
   <link rel="canonical" href="https://esonderegger.github.io/plaster/" />
   <link rel="icon" href="img/favicon.png">
   <meta charset="utf-8">
-  <meta name="description" content="Plaster helps podcast makers create, edit, and upload their feeds from a friendly user interface." />
+  <title>Plaster</title>
+  <meta name="description" content="A Desktop App for Making Great Podcasts" />
   <meta name="robots" content="index, follow" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plaster - A Desktop App for Making Great Podcasts</title>
   <meta property="og:url" content="https://esonderegger.github.io/plaster/" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Plaster - A Desktop App for Making Great Podcasts" />
-  <meta property="og:description" content="Plaster helps podcast makers create, edit, and upload their feeds from a friendly user interface." />
+  <meta property="og:title" content="Plaster" />
+  <meta property="og:description" content="A Desktop App for Making Great Podcasts" />
   <meta property="og:image" content="https://esonderegger.github.io/plaster/img/facebook-image.png" />
   <meta property="fb:app_id" content="615952661917834"/>
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@esonderegger" />
-  <meta name="twitter:title" content="Plaster - A Desktop App for Making Great Podcasts" />
-  <meta name="twitter:description" content="Plaster helps podcast makers create, edit, and upload their feeds from a friendly user interface." />
+  <meta name="twitter:title" content="Plaster" />
+  <meta name="twitter:description" content="A Desktop App for Making Great Podcasts" />
   <meta name="twitter:image" content="https://esonderegger.github.io/plaster/img/logo-blue-600.png" />
   <link rel="stylesheet" href="css/plaster-docs.css" />
 </head>
 
 <body>
-  <div class="top-section">
-    <div class="top-section-inner">
-      <div class="title-row">
-        <div class="logo-image">
-          <img src="img/logo-trans-240.png" alt="plaster logo" />
-        </div>
-        <div class="title-text">
-          <h1>Plaster</h1>
-        </div>
-      </div>
-      <h2>A Desktop App for Making Great Podcasts</h2>
-      <div class="download-buttons">
-        <div></div>
-        <a href="https://plaster-nuts.herokuapp.com/download" download>Download Plaster</a>
-        <div></div>
-      </div>
-    </div>
-  </div>
-  <div class="vision-section">
-    <div class="section-inner">
-      <h2>Plaster makes it easy to self-host podcast feeds.</h2>
-      <p>Plaster provides a simple user interface for editing your podcast’s xml feed data, converting your audio to mp3, and uploading everything to a web server. If you are looking for the easiest way to get your podcast online, Plaster probably isn’t for you. There are some great sites offering complete solutions podcast hosting including <a href="https://www.libsyn.com/">Libsyn</a>, <a href="https://soundcloud.com/for/podcasting">SoundCloud</a>, <a href="https://www.podbean.com/">PodBean</a>, and <a href="https://www.buzzsprout.com/">Buzzsprout</a>.</p>
-      <p>However, if you are comfortable with web hosting, want to use your own domain for your podcast’s url, or just enjoy tinkering, Plaster might make your life a little easier. Some advantages to self-hosting your podcast as static files include:</p>
-      <ul>
-        <li>The freedom to change hosting companies when a better one comes along (or your current one goes out of business)</li>
-        <li>Cheaper hosting costs (usually)</li>
-        <li>Fewer security vulnerabilities (than self-hosting with a WordPress + plugin setup)</li>
-      </ul>
-      <p>Plaster syncs with your static web host via the most common protocols: SFTP (SCP) and S3. More protocols are coming soon. There are too many companies offering static web site hosting to list them all, but some popular/recommended ones are:</p>
-      <ul>
-        <li><a href="http://docs.aws.amazon.com/gettingstarted/latest/swh/website-hosting-intro.html">Amazon S3</a></li>
-        <li><a href="https://firebase.google.com/docs/hosting/">Firebase</a></li>
-        <li><a href="https://www.netlify.com/">Netlify</a></li>
-        <li><a href="https://www.nearlyfreespeech.net/services/hosting">NearlyFreeSpeech</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="lufs-section">
-    <div class="section-inner">
-      <h2>A loudness level we can all agree on</h2>
-      <p>By default, Plaster normalizes all podcast episodes to a loudness level of -18 LUFS when it encodes them to mp3.</p>
-      <p>The AES has <a href="http://www.aes.org/technical/documents/AESTD1004_1_15_10.pdf">recommended</a> podcasts normalize their loudness levels to between -20 and -16 LUFS. Many of the most prominent NPR podcasts have already standardized on -18 LUFS.</p>
-      <p>Plaster makes it easy for your podcasts to be published at a consistent loudness level that won't make your listeners reach for the volume knob when they change feeds.</p>
-    </div>
-  </div>
-  <div class="apache-section">
-    <div class="section-inner">
-      <h2>Plaster is free and open-source.</h2>
-      <p>Plaster is released under an <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 license</a>. It will always be free (<a href="https://en.wikipedia.org/wiki/Gratis_versus_libre">as in speech</a>). The source code is <a href="https://github.com/esonderegger/plaster">hosted on github</a>.</p>
-      <p>Contributions are welcome! If you are using Plaster, and find a bug with it, please <a href="https://github.com/esonderegger/plaster/issues">create an issue for it</a>. If you would like to contribute to the codebase, please <a href="https://github.com/esonderegger/plaster/pulls">create a pull request</a>. If you have no idea what github is, please reach out via <a href="mailto:evan@rpy.xyz">email</a> - I would love to hear from you.</p>
-    </div>
-  </div>
-  <div class="download-section" id="download">
-    <div class="section-inner">
-      <h2>Download Plaster today.</h2>
-      <p>Plaster is available for macOS, Windows, and Linux. Please select the appropriate download link below:</p>
-      <div class="download-buttons">
-        <a href="https://plaster-nuts.herokuapp.com/download/osx" download>macOS</a>
-        <a href="https://plaster-nuts.herokuapp.com/download/win" download>Windows</a>
-        <a href="https://plaster-nuts.herokuapp.com/download/linux" download>Linux</a>
-      </div>
+  <hgroup>
+    <h1><img src="img/logo-trans-240.png" alt="Plaster logo" />Plaster</h1>
+    <h2>A Desktop App for Making Great Podcasts</h2>
+    <a href="https://plaster-nuts.herokuapp.com/download" class="button top-download" download>Download Plaster</a>
+  </hgroup>
+  <section>
+    <h1>Plaster makes it easy to self-host podcast feeds.</h1>
+    <p>Plaster provides a simple user interface for editing your podcast’s xml feed data, converting your audio to mp3, and uploading everything to a web server. If you are looking for the easiest way to get your podcast online, Plaster probably isn’t for you. There are some great sites offering complete solutions for podcast hosting including <a href="https://www.libsyn.com/">Libsyn</a>, <a href="https://soundcloud.com/for/podcasting">SoundCloud</a>, <a href="https://www.podbean.com/">PodBean</a>, and <a href="https://www.buzzsprout.com/">Buzzsprout</a>.</p>
+    <p>However, if you are comfortable with web hosting, want to use your own domain for your podcast’s url, or just enjoy tinkering, Plaster might make your life a little easier. Some advantages to self-hosting your podcast as static files include:</p>
+    <ul>
+      <li>The freedom to change hosting companies when a better one comes along (or your current one goes out of business)</li>
+      <li>Cheaper hosting costs (usually)</li>
+      <li>Fewer security vulnerabilities (than self-hosting with a WordPress + plugin setup)</li>
+    </ul>
+    <p>Plaster syncs with your static web host via the most common protocols: SFTP (SCP) and S3. More protocols are coming soon. There are too many companies offering static web site hosting to list them all, but some popular/recommended ones are:</p>
+    <ul>
+      <li><a href="http://docs.aws.amazon.com/gettingstarted/latest/swh/website-hosting-intro.html">Amazon S3</a></li>
+      <li><a href="https://firebase.google.com/docs/hosting/">Firebase</a></li>
+      <li><a href="https://www.netlify.com/">Netlify</a></li>
+      <li><a href="https://www.nearlyfreespeech.net/services/hosting">NearlyFreeSpeech</a></li>
+    </ul>
+  </section>
+  <section>
+    <h1>A loudness level we can all agree on</h1>
+    <p>By default, Plaster normalizes all podcast episodes to a loudness level of -18 LUFS when it encodes them to mp3.</p>
+    <p>The AES has <a href="http://www.aes.org/technical/documents/AESTD1004_1_15_10.pdf">recommended</a> podcasts normalize their loudness levels to between -20 and -16 LUFS. Many of the most prominent NPR podcasts have already standardized on -18 LUFS.</p>
+    <p>Plaster makes it easy for your podcasts to be published at a consistent loudness level that won't make your listeners reach for the volume knob when they change feeds.</p>
+  </section>
+  <section>
+    <h1>Plaster is free and open-source.</h1>
+    <p>Plaster is released under an <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 license</a>. It will always be free (<a href="https://en.wikipedia.org/wiki/Gratis_versus_libre">as in speech</a>). The source code is <a href="https://github.com/esonderegger/plaster">hosted on github</a>.</p>
+    <p>Contributions are welcome! If you are using Plaster, and find a bug with it, please <a href="https://github.com/esonderegger/plaster/issues">create an issue for it</a>. If you would like to contribute to the codebase, please <a href="https://github.com/esonderegger/plaster/pulls">create a pull request</a>. If you have no idea what github is, please reach out via <a href="mailto:evan@rpy.xyz">email</a> - I would love to hear from you.</p>
+  </section>
+  <section>
+    <h1>Download Plaster today.</h1>
+    <p>Plaster is available for macOS, Windows, and Linux. Please select the appropriate download link below:</p>
+    <div class="download-buttons">
+      <a href="https://plaster-nuts.herokuapp.com/download/osx" class="button" download>macOS</a>
+      <a href="https://plaster-nuts.herokuapp.com/download/win" class="button" download>Windows</a>
+      <a href="https://plaster-nuts.herokuapp.com/download/linux" class="button" download>Linux</a>
     </div>
   </div>
   <script>
@@ -91,10 +70,8 @@
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
     ga('create', 'UA-86842075-1', 'auto');
     ga('send', 'pageview');
-
   </script>
 </body>
 </html>

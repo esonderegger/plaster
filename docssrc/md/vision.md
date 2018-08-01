@@ -1,6 +1,6 @@
 ## Plaster makes it easy to self-host podcast feeds.
 
-Plaster provides a simple user interface for editing your podcast's xml feed data, converting your audio to mp3, and uploading everything to a web server. If you are looking for the easiest way to get your podcast online, Plaster probably isn't for you. There are some great sites offering complete solutions podcast hosting including [Libsyn](https://www.libsyn.com/), [SoundCloud](https://soundcloud.com/for/podcasting), [PodBean](https://www.podbean.com/), and [Buzzsprout](https://www.buzzsprout.com/).
+Plaster provides a simple user interface for editing your podcast's xml feed data, converting your audio to mp3, and uploading everything to a web server. If you are looking for the easiest way to get your podcast online, Plaster probably isn't for you. There are some great sites offering complete solutions for podcast hosting including [Libsyn](https://www.libsyn.com/), [SoundCloud](https://soundcloud.com/for/podcasting), [PodBean](https://www.podbean.com/), and [Buzzsprout](https://www.buzzsprout.com/).
 
 However, if you are comfortable with web hosting, want to use your own domain for your podcast's url, or just enjoy tinkering, Plaster might make your life a little easier. Some advantages to self-hosting your podcast as static files include:
 

@@ -1,0 +1,80 @@
+section {
+  padding: 10vw 1em;
+
+  @media (min-width: 800px) {
+    padding: 5rem 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 300;
+    margin: .5em auto;
+    max-width: 44rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    font-weight: 300;
+    line-height: 1.5;
+    margin: 1em auto;
+    max-width: 44rem;
+  }
+
+  ul {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin: 1em auto;
+    max-width: 44rem;
+  }
+
+  li {
+    margin: .5em 0;
+  }
+
+  a {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  &:nth-of-type(even) {
+    background-color: $blue-grey-500;
+    color: $white-87;
+
+    a {
+      color: $white;
+    }
+  }
+
+  &:nth-of-type(odd) {
+    background-color: $grey-200;
+    color: $black-87;
+
+    a {
+      color: $blue-grey-500;
+    }
+  }
+}
+
+.download-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 44rem;
+  padding: 1em 0;
+}
+
+.button {
+  border: 1px solid $white-87;
+  border-radius: .2em;
+  color: $white-87;
+  display: inline-block;
+  font-size: 1.2em;
+  font-weight: 300;
+  padding: .5em 1em;
+  text-decoration: none;
+
+  &:hover {
+    background-color: $white-12;
+  }
+}
