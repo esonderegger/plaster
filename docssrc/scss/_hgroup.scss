@@ -1,0 +1,55 @@
+hgroup {
+  background-color: $blue-grey-500;
+  color: $white;
+  padding: 10vw 1rem;
+
+  .top-download {
+    display: block;
+    margin: 1rem auto;
+    text-align: center;
+    width: 8em;
+  }
+
+  img {
+    float: left;
+    margin-right: 4vw;
+    width: 24vw;
+  }
+
+  h1 {
+    font-size: 18vw;
+    font-weight: 300;
+    line-height: 24vw;
+    margin: .1em auto;
+    max-width: 48rem;
+    opacity: 1;
+  }
+
+  h2 {
+    clear: both;
+    font-size: 4.5vw;
+    font-weight: 300;
+    line-height: 1.2;
+    margin: .5em auto;
+    max-width: 48rem;
+    opacity: .87;
+  }
+
+  @media (min-width: 800px) {
+    padding: 5rem 1rem;
+
+    h1 {
+      font-size: 10rem;
+      line-height: 15rem;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+    }
+
+    img {
+      margin-right: 1.5rem;
+      width: 15rem;
+    }
+  }
+}
