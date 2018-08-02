@@ -22,7 +22,7 @@
   },
   "homepage": "https://esonderegger.github.io/plaster/",
   "dependencies": {
-    "browser-id3-writer": "^2.3.1",
+    "browser-id3-writer": "^4.0.0",
     "handlebars": "^4.0.11",
     "moment": "^2.22.2",
     "readdirp": "^2.1.0",
